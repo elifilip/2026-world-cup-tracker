@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 FIFA World Cup Tracker</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#002366;--red:#9a1e2e;--gold:#c9a84c;--bg:#0d1b2e;
+  --card:#0f2035;--card2:#132640;--border:#1e3a5f;
+  --text:#e8edf5;--muted:#7a9cc0;--green:#1a7a4a;--green-bg:rgba(26,122,74,0.15);
+  --red-bg:rgba(154,30,46,0.18);--gold-bg:rgba(201,168,76,0.15);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5}
+
+/* HEADER */
+header{background:linear-gradient(135deg,var(--navy) 0%,#001440 50%,var(--red) 100%);padding:2rem 1rem 1.5rem;text-align:center;border-bottom:3px solid var(--gold);position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.header-badge{display:inline-block;background:var(--gold);color:#000;font-weight:700;font-size:0.7rem;padding:0.2rem 0.7rem;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem}
+header h1{font-size:clamp(1.6rem,5vw,3rem);font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.5);letter-spacing:-0.5px}
+header h1 span{color:var(--gold)}
+header p.subtitle{color:rgba(255,255,255,0.75);font-size:0.95rem;margin-top:0.3rem}
+.last-updated{display:inline-block;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:0.25rem 0.75rem;border-radius:20px;font-size:0.78rem;color:rgba(255,255,255,0.7);margin-top:0.75rem}
+
+/* NAV */
+nav{background:rgba(0,20,60,0.95);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
+nav ul{display:flex;gap:0;list-style:none;overflow-x:auto;padding:0 1rem;scrollbar-width:none}
+nav ul::-webkit-scrollbar{display:none}
+nav ul li a{display:block;padding:0.75rem 1.25rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s}
+nav ul li a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* LEGEND */
+.legend{display:flex;gap:1rem;flex-wrap:wrap;padding:0.75rem 1rem;background:var(--card);border-bottom:1px solid var(--border);justify-content:center}
+.legend-item{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted)}
+.legend-dot{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.legend-dot.green{background:var(--green)}
+.legend-dot.gold{background:var(--gold)}
+.legend-dot.red{background:var(--red)}
+
+/* MAIN */
+main{max-width:1400px;margin:0 auto;padding:1rem}
+
+/* SECTION HEADERS */
+.section-header{display:flex;align-items:center;gap:1rem;margin:2rem 0 1rem;padding-bottom:0.5rem;border-bottom:2px solid var(--border)}
+.section-header h2{font-size:1.4rem;font-weight:700;color:#fff}
+.section-header h2 span{color:var(--gold)}
+.section-badge{background:var(--navy);border:1px solid var(--gold);color:var(--gold);font-size:0.7rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;letter-spacing:0.5px;text-transform:uppercase}
+
+/* GROUP GRID */
+.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem}
+
+/* GROUP CARD */
+.group-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:box-shadow 0.2s}
+.group-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+.group-card-header{background:linear-gradient(90deg,var(--navy),#0a2550);padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.group-card-header h3{font-size:1rem;font-weight:700;color:#fff;letter-spacing:0.5px}
+.matchday-badge{font-size:0.72rem;font-weight:600;padding:0.2rem 0.6rem;border-radius:20px;background:rgba(201,168,76,0.2);color:var(--gold);border:1px solid rgba(201,168,76,0.4)}
+.matchday-badge.complete{background:rgba(26,122,74,0.2);color:#4ade80;border-color:rgba(74,222,128,0.3)}
+
+/* STANDINGS TABLE */
+.standings-table{width:100%;border-collapse:collapse}
+.standings-table th{font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;padding:0.4rem 0.4rem;text-align:center;border-bottom:1px solid var(--border)}
+.standings-table th:first-child{text-align:left;padding-left:0.75rem}
+.standings-table td{padding:0.45rem 0.4rem;text-align:center;font-size:0.82rem;border-bottom:1px solid rgba(30,58,95,0.5)}
+.standings-table td:first-child{text-align:left;padding-left:0.75rem}
+.standings-table tbody tr:last-child td{border-bottom:none}
+
+.team-cell{display:flex;align-items:center;gap:0.4rem;white-space:nowrap}
+.pos-badge{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;flex-shrink:0}
+.pos-1{background:var(--gold);color:#000}
+.pos-2{background:#c0c0c0;color:#000}
+.pos-3{background:#cd7f32;color:#fff}
+.pos-4{background:#444;color:#999}
+
+.qualified-row{background:var(--green-bg);border-left:3px solid var(--green)}
+.qualified-row td:first-child{padding-left:calc(0.75rem - 3px)}
+.eliminated-row{background:var(--red-bg);opacity:0.7}
+.clinched-tag{font-size:0.6rem;font-weight:700;background:var(--green);color:#fff;padding:0.1rem 0.3rem;border-radius:3px;margin-left:0.3rem;vertical-align:middle}
+.elim-tag{font-size:0.6rem;font-weight:700;background:var(--red);color:#fff;padding:0.1rem 0.3rem;border-radius:3px;margin-left:0.3rem;vertical-align:middle}
+
+.pts-cell{font-weight:700;color:#fff}
+.gd-pos{color:#4ade80}
+.gd-neg{color:#f87171}
+
+/* SCHEDULE TOGGLE */
+.schedule-toggle{width:100%;background:rgba(0,36,102,0.4);border:none;border-top:1px solid var(--border);color:var(--muted);padding:0.6rem 1rem;cursor:pointer;font-size:0.8rem;font-weight:600;text-align:left;display:flex;align-items:center;justify-content:space-between;transition:background 0.2s}
+.schedule-toggle:hover{background:rgba(0,36,102,0.7);color:var(--text)}
+.toggle-arrow{transition:transform 0.25s}
+.toggle-arrow.open{transform:rotate(180deg)}
+
+.schedule-body{display:none;border-top:1px solid var(--border)}
+.schedule-body.open{display:block}
+.schedule-table{width:100%;border-collapse:collapse}
+.schedule-table tr{border-bottom:1px solid rgba(30,58,95,0.4)}
+.schedule-table tr:last-child{border-bottom:none}
+.schedule-table td{padding:0.45rem 0.6rem;font-size:0.78rem;vertical-align:middle}
+.schedule-table tr.played{opacity:1}
+.schedule-table tr.upcoming{opacity:0.6}
+.schedule-table tr.today{background:var(--gold-bg);border-left:3px solid var(--gold)}
+.md-badge{display:inline-block;background:var(--navy);color:var(--gold);font-size:0.65rem;font-weight:700;padding:0.15rem 0.4rem;border-radius:4px;border:1px solid rgba(201,168,76,0.3)}
+.match-date{color:var(--muted);font-size:0.72rem;white-space:nowrap}
+.match-teams{font-weight:600;color:var(--text)}
+.score{font-weight:700;color:var(--gold)}
+.venue-text{color:var(--muted);font-size:0.7rem;font-style:italic}
+
+/* 3RD PLACE TABLE */
+.thirds-section{margin:2rem 0}
+.thirds-note{font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;padding:0.5rem 0.75rem;background:var(--gold-bg);border-left:3px solid var(--gold);border-radius:0 4px 4px 0}
+.thirds-table-wrap{overflow-x:auto}
+.thirds-table{width:100%;border-collapse:collapse;min-width:540px}
+.thirds-table th{font-size:0.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;padding:0.5rem 0.6rem;text-align:center;border-bottom:2px solid var(--border);background:var(--card)}
+.thirds-table th:first-child,.thirds-table th:nth-child(2){text-align:left}
+.thirds-table td{padding:0.5rem 0.6rem;text-align:center;border-bottom:1px solid rgba(30,58,95,0.4);font-size:0.82rem}
+.thirds-table td:first-child,.thirds-table td:nth-child(2){text-align:left}
+.thirds-table tbody tr.contention{background:var(--gold-bg)}
+.thirds-table tbody tr.contention td:first-child{border-left:3px solid var(--gold)}
+.thirds-divider td{padding:0.3rem 0.6rem;font-size:0.72rem;color:var(--muted);font-style:italic;background:rgba(154,30,46,0.1);border-bottom:2px dashed var(--red);text-align:center;border-top:2px dashed var(--red)}
+.rank-num{font-weight:700;color:var(--gold)}
+.group-tag{display:inline-block;background:var(--navy);color:var(--muted);font-size:0.68rem;padding:0.1rem 0.35rem;border-radius:3px;border:1px solid var(--border)}
+
+/* BRACKET */
+.bracket-section{margin:2rem 0}
+.bracket-outer{overflow-x:auto;padding-bottom:1rem;-webkit-overflow-scrolling:touch}
+.bracket-wrap{min-width:1100px;padding:1rem}
+.bracket-grid{display:flex;gap:0;align-items:stretch}
+.bracket-round{display:flex;flex-direction:column;flex:1;min-width:180px}
+.round-header{text-align:center;padding:0.5rem;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold);border-bottom:1px solid var(--border);margin-bottom:0.5rem;background:var(--card);border-radius:4px 4px 0 0}
+.bracket-matches{display:flex;flex-direction:column;flex:1;justify-content:space-around;padding:0 0.25rem}
+.bracket-match{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin:0.25rem 0;position:relative}
+.bracket-match::after{content:'';position:absolute;right:-0.5rem;top:50%;width:0.5rem;height:1px;background:var(--border)}
+.match-meta{font-size:0.62rem;color:var(--muted);padding:0.25rem 0.5rem;background:rgba(0,20,60,0.5);border-bottom:1px solid var(--border)}
+.bracket-team{display:flex;align-items:center;justify-content:space-between;padding:0.35rem 0.5rem;border-bottom:1px solid var(--border);font-size:0.78rem}
+.bracket-team:last-child{border-bottom:none}
+.bracket-team.winner{background:rgba(201,168,76,0.12);font-weight:700;color:#fff}
+.bracket-team.tbd{color:var(--muted);font-style:italic}
+.bracket-score{font-weight:700;color:var(--gold);font-size:0.75rem}
+
+/* CONNECTOR LINES */
+.bracket-connector{display:flex;flex-direction:column;justify-content:space-around;width:20px;flex-shrink:0}
+.connector-pair{display:flex;flex-direction:column;flex:1;justify-content:center;align-items:flex-start;padding:0.5rem 0}
+.connector-line{border-right:1px solid var(--border);flex:1}
+.connector-mid{border-top:1px solid var(--border);width:20px;height:1px}
+
+/* FINAL */
+.bracket-final{display:flex;flex-direction:column;justify-content:center;min-width:200px;padding:0 0.5rem}
+.final-label{text-align:center;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:0.5rem;background:var(--card);padding:0.4rem;border-radius:4px;border:1px solid var(--gold)}
+.bracket-match.final-match{border-color:var(--gold)}
+
+/* QUALIFIED BANNER */
+.qualified-banner{background:linear-gradient(90deg,rgba(26,122,74,0.2),rgba(26,122,74,0.05));border:1px solid rgba(74,222,128,0.3);border-radius:6px;padding:0.5rem 0.75rem;margin:0.75rem 0;font-size:0.8rem;color:#4ade80;display:flex;align-items:center;gap:0.5rem}
+
+@media(max-width:768px){
+  .groups-grid{grid-template-columns:1fr}
+  .bracket-outer{margin:0 -1rem;padding:0 0 1rem}
+  nav ul li a{padding:0.75rem 0.9rem;font-size:0.8rem}
+  header{padding:1.5rem 1rem 1rem}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Live Tracker</div>
+  <h1>2026 FIFA <span>World Cup</span></h1>
+  <p class="subtitle">USA &bull; Canada &bull; Mexico &nbsp;|&nbsp; 48 Teams &bull; 104 Matches</p>
+  <div class="last-updated">&#128197; Last updated: June 20, 2026</div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#groups">&#127942; Group Stage</a></li>
+    <li><a href="#thirds">&#127941; 3rd Place Rankings</a></li>
+    <li><a href="#bracket">&#127358; R32 Bracket</a></li>
+  </ul>
+</nav>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot green"></div> Qualified / Clinched</div>
+  <div class="legend-item"><div class="legend-dot gold"></div> Best 3rd-place contention</div>
+  <div class="legend-item"><div class="legend-dot red"></div> Eliminated</div>
+</div>
+
+<main>
+
+<!-- ═══════════════════ GROUP STAGE ═══════════════════ -->
+<section id="groups">
+  <div class="section-header">
+    <h2>&#127942; <span>Group</span> Stage</h2>
+    <span class="section-badge">Matchday 1–3</span>
+  </div>
+
+  <div class="qualified-banner">
+    <span>&#9989;</span>
+    <span><strong>Mexico</strong> (Group A) and <strong>United States</strong> (Group D) have clinched Round of 32 spots.</span>
+  </div>
+
+  <div class="groups-grid">
+
+    <!-- GROUP A -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group A</h3>
+        <span class="matchday-badge complete">Matchday 2 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr class="qualified-row">
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127474;&#127485; Mexico<span class="clinched-tag">CLINCHED</span></div></td>
+            <td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td class="gd-pos">+3</td><td class="pts-cell">6</td>
+          </tr>
+          <tr class="qualified-row">
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127472;&#127479; South Korea</div></td>
+            <td>2</td><td>1</td><td>0</td><td>1</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127464;&#127487; Czechia</div></td>
+            <td>2</td><td>0</td><td>1</td><td>1</td><td>2</td><td>3</td><td class="gd-neg">-1</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127487;&#127462; South Africa</div></td>
+            <td>2</td><td>0</td><td>1</td><td>1</td><td>1</td><td>3</td><td class="gd-neg">-2</td><td class="pts-cell">1</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group A Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 11</td><td class="match-teams">&#127474;&#127485; Mexico <span class="score">2–0</span> South Africa &#127487;&#127462;</td><td class="venue-text">Estadio Azteca</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 11</td><td class="match-teams">&#127472;&#127479; S. Korea <span class="score">2–1</span> Czechia &#127464;&#127487;</td><td class="venue-text">Estadio Akron</td></tr>
+          <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 18</td><td class="match-teams">&#127464;&#127487; Czechia <span class="score">1–1</span> S. Africa &#127487;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 18</td><td class="match-teams">&#127474;&#127485; Mexico <span class="score">1–0</span> S. Korea &#127472;&#127479;</td><td class="venue-text">Estadio Akron</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 22</td><td class="match-teams">&#127487;&#127462; S. Africa vs S. Korea &#127472;&#127479;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 22</td><td class="match-teams">&#127464;&#127487; Czechia vs Mexico &#127474;&#127485;</td><td class="venue-text">TBD</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP B -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group B</h3>
+        <span class="matchday-badge complete">Matchday 2 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr class="qualified-row">
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127464;&#127462; Canada</div></td>
+            <td>2</td><td>1</td><td>1</td><td>0</td><td>7</td><td>1</td><td class="gd-pos">+6</td><td class="pts-cell">4</td>
+          </tr>
+          <tr class="qualified-row">
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127464;&#127469; Switzerland</div></td>
+            <td>2</td><td>1</td><td>1</td><td>0</td><td>5</td><td>2</td><td class="gd-pos">+3</td><td class="pts-cell">4</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127463;&#127462; Bosnia &amp; Herz.</div></td>
+            <td>2</td><td>0</td><td>1</td><td>1</td><td>2</td><td>5</td><td class="gd-neg">-3</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127478;&#127462; Qatar</div></td>
+            <td>2</td><td>0</td><td>1</td><td>1</td><td>1</td><td>7</td><td class="gd-neg">-6</td><td class="pts-cell">1</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group B Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 12</td><td class="match-teams">&#127464;&#127462; Canada <span class="score">1–1</span> Bosnia &#127463;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 13</td><td class="match-teams">&#127464;&#127469; Switzerland <span class="score">1–1</span> Qatar &#127478;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 18</td><td class="match-teams">&#127464;&#127469; Switzerland <span class="score">4–1</span> Bosnia &#127463;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 18</td><td class="match-teams">&#127464;&#127462; Canada <span class="score">6–0</span> Qatar &#127478;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 23</td><td class="match-teams">&#127463;&#127462; Bosnia vs Canada &#127464;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 23</td><td class="match-teams">&#127478;&#127462; Qatar vs Switzerland &#127464;&#127469;</td><td class="venue-text">TBD</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP C -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group C</h3>
+        <span class="matchday-badge complete">Matchday 2 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr class="qualified-row">
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127463;&#127479; Brazil</div></td>
+            <td>2</td><td>1</td><td>1</td><td>0</td><td>4</td><td>1</td><td class="gd-pos">+3</td><td class="pts-cell">4</td>
+          </tr>
+          <tr class="qualified-row">
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127474;&#127462; Morocco</div></td>
+            <td>2</td><td>1</td><td>1</td><td>0</td><td>2</td><td>1</td><td class="gd-pos">+1</td><td class="pts-cell">4</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127988;󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</div></td>
+            <td>2</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">3</td>
+          </tr>
+          <tr class="eliminated-row">
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127469;&#127481; Haiti<span class="elim-tag">ELIM</span></div></td>
+            <td>2</td><td>0</td><td>0</td><td>2</td><td>0</td><td>4</td><td class="gd-neg">-4</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group C Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 13</td><td class="match-teams">&#127463;&#127479; Brazil <span class="score">1–1</span> Morocco &#127474;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 13</td><td class="match-teams">&#127988;󠁧󠁢󠁳󠁣󠁴󠁿 Scotland <span class="score">1–0</span> Haiti &#127469;&#127481;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 19</td><td class="match-teams">&#127474;&#127462; Morocco <span class="score">1–0</span> Scotland &#127988;󠁧󠁢󠁳󠁣󠁴󠁿</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 19</td><td class="match-teams">&#127463;&#127479; Brazil <span class="score">3–0</span> Haiti &#127469;&#127481;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 24</td><td class="match-teams">&#127988;󠁧󠁢󠁳󠁣󠁴󠁿 Scotland vs Brazil &#127463;&#127479;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 24</td><td class="match-teams">&#127474;&#127462; Morocco vs Haiti &#127469;&#127481;</td><td class="venue-text">TBD</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP D -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group D</h3>
+        <span class="matchday-badge complete">Matchday 2 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr class="qualified-row">
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127482;&#127480; United States<span class="clinched-tag">CLINCHED</span></div></td>
+            <td>2</td><td>2</td><td>0</td><td>0</td><td>6</td><td>1</td><td class="gd-pos">+5</td><td class="pts-cell">6</td>
+          </tr>
+          <tr class="qualified-row">
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127462;&#127482; Australia</div></td>
+            <td>2</td><td>1</td><td>0</td><td>1</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127477;&#127486; Paraguay</div></td>
+            <td>2</td><td>1</td><td>0</td><td>1</td><td>2</td><td>4</td><td class="gd-neg">-2</td><td class="pts-cell">3</td>
+          </tr>
+          <tr class="eliminated-row">
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127481;&#127479; Türkiye<span class="elim-tag">ELIM</span></div></td>
+            <td>2</td><td>0</td><td>0</td><td>2</td><td>0</td><td>3</td><td class="gd-neg">-3</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group D Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 12</td><td class="match-teams">&#127482;&#127480; USA <span class="score">4–1</span> Paraguay &#127477;&#127486;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 13</td><td class="match-teams">&#127462;&#127482; Australia <span class="score">2–0</span> Türkiye &#127481;&#127479;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 19</td><td class="match-teams">&#127482;&#127480; USA <span class="score">2–0</span> Australia &#127462;&#127482;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 19</td><td class="match-teams">&#127481;&#127479; Türkiye <span class="score">0–1</span> Paraguay &#127477;&#127486;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127462;&#127482; Australia vs USA &#127482;&#127480;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127477;&#127486; Paraguay vs Türkiye &#127481;&#127479;</td><td class="venue-text">TBD</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP E -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group E</h3>
+        <span class="matchday-badge">Matchday 2 of 3 &#9679; TODAY</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127465;&#127466; Germany</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>7</td><td>1</td><td class="gd-pos">+6</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127464;&#127470; Ivory Coast</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="gd-pos">+1</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127466;&#127464; Ecuador</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="gd-neg">-1</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127464;&#127484; Curaçao</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>7</td><td class="gd-neg">-6</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group E Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 14</td><td class="match-teams">&#127465;&#127466; Germany <span class="score">7–1</span> Curaçao &#127464;&#127484;</td><td class="venue-text">NRG Stadium, Houston</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 14</td><td class="match-teams">&#127464;&#127470; Ivory Coast <span class="score">1–0</span> Ecuador &#127466;&#127464;</td><td class="venue-text">TBD</td></tr>
+          <tr class="today"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127465;&#127466; Germany vs Ivory Coast &#127464;&#127470;</td><td class="venue-text">BMO Field, Toronto</td></tr>
+          <tr class="today"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127466;&#127464; Ecuador vs Curaçao &#127464;&#127484;</td><td class="venue-text">Children's Mercy Park, KC</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127466;&#127464; Ecuador vs Germany &#127465;&#127466;</td><td class="venue-text">MetLife Stadium, NJ</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127464;&#127484; Curaçao vs Ivory Coast &#127464;&#127470;</td><td class="venue-text">Lincoln Financial Field</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP F -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group F</h3>
+        <span class="matchday-badge">Matchday 2 of 3 &#9679; TODAY</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127480;&#127466; Sweden</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>5</td><td>1</td><td class="gd-pos">+4</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127475;&#127473; Netherlands</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127471;&#127477; Japan</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127481;&#127475; Tunisia</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>5</td><td class="gd-neg">-4</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group F Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 14</td><td class="match-teams">&#127475;&#127473; Netherlands <span class="score">2–2</span> Japan &#127471;&#127477;</td><td class="venue-text">AT&amp;T Stadium, Dallas</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 14</td><td class="match-teams">&#127480;&#127466; Sweden <span class="score">5–1</span> Tunisia &#127481;&#127475;</td><td class="venue-text">TBD</td></tr>
+          <tr class="today"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127475;&#127473; Netherlands vs Sweden &#127480;&#127466;</td><td class="venue-text">NRG Stadium, Houston</td></tr>
+          <tr class="today"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127481;&#127475; Tunisia vs Japan &#127471;&#127477;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127471;&#127477; Japan vs Sweden &#127480;&#127466;</td><td class="venue-text">AT&amp;T Stadium, Dallas</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127481;&#127475; Tunisia vs Netherlands &#127475;&#127473;</td><td class="venue-text">TBD</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP G -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group G</h3>
+        <span class="matchday-badge">Matchday 1 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127470;&#127479; Iran</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127475;&#127487; New Zealand</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127463;&#127466; Belgium</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127466;&#127468; Egypt</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group G Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127463;&#127466; Belgium <span class="score">1–1</span> Egypt &#127466;&#127468;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127470;&#127479; Iran <span class="score">2–2</span> New Zealand &#127475;&#127487;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127463;&#127466; Belgium vs Iran &#127470;&#127479;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127466;&#127468; Egypt vs New Zealand &#127475;&#127487;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127466;&#127468; Egypt vs Iran &#127470;&#127479;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127475;&#127487; New Zealand vs Belgium &#127463;&#127466;</td><td class="venue-text">TBD</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP H -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group H</h3>
+        <span class="matchday-badge">Matchday 1 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127480;&#127462; Saudi Arabia</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127482;&#127486; Uruguay</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127466;&#127480; Spain</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127464;&#127483; Cape Verde</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group H Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127466;&#127480; Spain <span class="score">0–0</span> Cape Verde &#127464;&#127483;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127480;&#127462; Saudi Arabia <span class="score">1–1</span> Uruguay &#127482;&#127486;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127466;&#127480; Spain vs Saudi Arabia &#127480;&#127462;</td><td class="venue-text">Estadio Akron</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127482;&#127486; Uruguay vs Cape Verde &#127464;&#127483;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127464;&#127483; Cape Verde vs Saudi Arabia &#127480;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127482;&#127486; Uruguay vs Spain &#127466;&#127480;</td><td class="venue-text">Estadio Akron</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP I -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group I</h3>
+        <span class="matchday-badge">Matchday 1 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127475;&#127476; Norway</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>4</td><td>1</td><td class="gd-pos">+3</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127467;&#127479; France</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>1</td><td class="gd-pos">+2</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127480;&#127475; Senegal</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>3</td><td class="gd-neg">-2</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127470;&#127478; Iraq</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>4</td><td class="gd-neg">-3</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group I Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 16</td><td class="match-teams">&#127467;&#127479; France <span class="score">3–1</span> Senegal &#127480;&#127475;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 16</td><td class="match-teams">&#127475;&#127476; Norway <span class="score">4–1</span> Iraq &#127470;&#127478;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 22</td><td class="match-teams">&#127467;&#127479; France vs Iraq &#127470;&#127478;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 22</td><td class="match-teams">&#127475;&#127476; Norway vs Senegal &#127480;&#127475;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127480;&#127475; Senegal vs France &#127467;&#127479;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127470;&#127478; Iraq vs Norway &#127475;&#127476;</td><td class="venue-text">TBD</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP J -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group J</h3>
+        <span class="matchday-badge">Matchday 1 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127462;&#127479; Argentina</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>0</td><td class="gd-pos">+3</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127462;&#127481; Austria</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>1</td><td class="gd-pos">+2</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127471;&#127476; Jordan</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>3</td><td class="gd-neg">-2</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127465;&#127487; Algeria</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>3</td><td class="gd-neg">-3</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group J Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 16</td><td class="match-teams">&#127462;&#127479; Argentina <span class="score">3–0</span> Algeria &#127465;&#127487;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 17</td><td class="match-teams">&#127462;&#127481; Austria <span class="score">3–1</span> Jordan &#127471;&#127476;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 23</td><td class="match-teams">&#127462;&#127479; Argentina vs Jordan &#127471;&#127476;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 23</td><td class="match-teams">&#127465;&#127487; Algeria vs Austria &#127462;&#127481;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127471;&#127476; Jordan vs Algeria &#127465;&#127487;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127462;&#127481; Austria vs Argentina &#127462;&#127479;</td><td class="venue-text">TBD</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP K -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group K</h3>
+        <span class="matchday-badge">Matchday 1 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127464;&#127476; Colombia</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>1</td><td class="gd-pos">+2</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127477;&#127481; Portugal</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127464;&#127465; DR Congo</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127482;&#127487; Uzbekistan</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>3</td><td class="gd-neg">-2</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group K Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 17</td><td class="match-teams">&#127477;&#127481; Portugal <span class="score">1–1</span> DR Congo &#127464;&#127465;</td><td class="venue-text">NRG Stadium, Houston</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 17</td><td class="match-teams">&#127464;&#127476; Colombia <span class="score">3–1</span> Uzbekistan &#127482;&#127487;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 23</td><td class="match-teams">&#127477;&#127481; Portugal vs Uzbekistan &#127482;&#127487;</td><td class="venue-text">NRG Stadium, Houston</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 23</td><td class="match-teams">&#127464;&#127476; Colombia vs DR Congo &#127464;&#127465;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127464;&#127465; DR Congo vs Uzbekistan &#127482;&#127487;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127464;&#127476; Colombia vs Portugal &#127477;&#127481;</td><td class="venue-text">Estadio Akron</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- GROUP L -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <h3>Group L</h3>
+        <span class="matchday-badge">Matchday 1 of 3 &#10003;</span>
+      </div>
+      <table class="standings-table">
+        <thead><tr>
+          <th>Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127988;󠁧󠁢󠁥󠁮󠁧󠁿 England</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>4</td><td>2</td><td class="gd-pos">+2</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127468;&#127469; Ghana</div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="gd-pos">+1</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127469;&#127479; Croatia</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>2</td><td>4</td><td class="gd-neg">-2</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127477;&#127462; Panama</div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="gd-neg">-1</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="schedule-toggle" onclick="toggleSchedule(this)">
+        <span>&#128197; Group L Schedule</span><span class="toggle-arrow">&#9660;</span>
+      </button>
+      <div class="schedule-body">
+        <table class="schedule-table">
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 17</td><td class="match-teams">&#127988;󠁧󠁢󠁥󠁮󠁧󠁿 England <span class="score">4–2</span> Croatia &#127469;&#127479;</td><td class="venue-text">AT&amp;T Stadium, Dallas</td></tr>
+          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 17</td><td class="match-teams">&#127468;&#127469; Ghana <span class="score">1–0</span> Panama &#127477;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 23</td><td class="match-teams">&#127988;󠁧󠁢󠁥󠁮󠁧󠁿 England vs Ghana &#127468;&#127469;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 23</td><td class="match-teams">&#127469;&#127479; Croatia vs Panama &#127477;&#127462;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127469;&#127479; Croatia vs Ghana &#127468;&#127469;</td><td class="venue-text">TBD</td></tr>
+          <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127477;&#127462; Panama vs England &#127988;󠁧󠁢󠁥󠁮󠁧󠁿</td><td class="venue-text">TBD</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /groups-grid -->
+</section>
+
+<!-- ═══════════════════ THIRD PLACE ═══════════════════ -->
+<section id="thirds" class="thirds-section">
+  <div class="section-header">
+    <h2>&#127941; <span>3rd-Place</span> Rankings</h2>
+    <span class="section-badge">Live</span>
+  </div>
+  <p class="thirds-note">8 best 3rd-place teams advance to Round of 32. Rankings updated in real time. Groups A–D have 2 games played; E–L have 1 game played — rankings are not yet directly comparable.</p>
+  <div class="thirds-table-wrap">
+    <table class="thirds-table">
+      <thead><tr>
+        <th>Rank</th><th>Team</th><th>Grp</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+      </tr></thead>
+      <tbody>
+        <tr class="contention"><td class="rank-num">1</td><td>&#127988;󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</td><td><span class="group-tag">C</span></td><td>2</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">3</td></tr>
+        <tr class="contention"><td class="rank-num">2</td><td>&#127477;&#127486; Paraguay</td><td><span class="group-tag">D</span></td><td>2</td><td>1</td><td>0</td><td>1</td><td>2</td><td>4</td><td class="gd-neg">-2</td><td class="pts-cell">3</td></tr>
+        <tr class="contention"><td class="rank-num">3</td><td>&#127471;&#127477; Japan</td><td><span class="group-tag">F</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">1</td></tr>
+        <tr class="contention"><td class="rank-num">4</td><td>&#127464;&#127465; DR Congo</td><td><span class="group-tag">K</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td></tr>
+        <tr class="contention"><td class="rank-num">5</td><td>&#127463;&#127466; Belgium</td><td><span class="group-tag">G</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td></tr>
+        <tr class="contention"><td class="rank-num">6</td><td>&#127466;&#127480; Spain</td><td><span class="group-tag">H</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">1</td></tr>
+        <tr class="contention"><td class="rank-num">7</td><td>&#127464;&#127487; Czechia</td><td><span class="group-tag">A</span></td><td>2</td><td>0</td><td>1</td><td>1</td><td>2</td><td>3</td><td class="gd-neg">-1</td><td class="pts-cell">1</td></tr>
+        <tr class="contention"><td class="rank-num">8</td><td>&#127463;&#127462; Bosnia &amp; Herz.</td><td><span class="group-tag">B</span></td><td>2</td><td>0</td><td>1</td><td>1</td><td>2</td><td>5</td><td class="gd-neg">-3</td><td class="pts-cell">1</td></tr>
+        <tr class="thirds-divider"><td colspan="11">&#8212; Currently below qualification line &#8212;</td></tr>
+        <tr><td class="rank-num">9</td><td>&#127469;&#127479; Croatia</td><td><span class="group-tag">L</span></td><td>1</td><td>0</td><td>0</td><td>1</td><td>2</td><td>4</td><td class="gd-neg">-2</td><td class="pts-cell">0</td></tr>
+        <tr><td class="rank-num">10</td><td>&#127471;&#127476; Jordan</td><td><span class="group-tag">J</span></td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>3</td><td class="gd-neg">-2</td><td class="pts-cell">0</td></tr>
+        <tr><td class="rank-num">11</td><td>&#127480;&#127475; Senegal</td><td><span class="group-tag">I</span></td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>3</td><td class="gd-neg">-2</td><td class="pts-cell">0</td></tr>
+        <tr><td class="rank-num">12</td><td>&#127466;&#127464; Ecuador</td><td><span class="group-tag">E</span></td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td class="gd-neg">-1</td><td class="pts-cell">0</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════ BRACKET ═══════════════════ -->
+<section id="bracket" class="bracket-section">
+  <div class="section-header">
+    <h2>&#127358; Round of <span>32</span> Bracket</h2>
+    <span class="section-badge">Jun 28 – Jul 13</span>
+  </div>
+  <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;">&#8592; Scroll horizontally on mobile &nbsp;|&nbsp; R32 runs June 28 – July 3, 2026</p>
+
+  <div class="bracket-outer">
+    <div class="bracket-wrap">
+
+      <!-- LEFT HALF LABEL -->
+      <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:0 0.25rem">
+        <span>&#9664; Left Half</span><span>Right Half &#9654;</span>
+      </div>
+
+      <div class="bracket-grid">
+
+        <!-- R32 LEFT (8 matches) -->
+        <div class="bracket-round">
+          <div class="round-header">Round of 32</div>
+          <div class="bracket-matches">
+
+            <div class="bracket-match">
+              <div class="match-meta">M1 &bull; Jun 28 &bull; SoFi Stadium, LA</div>
+              <div class="bracket-team tbd"><span>2A</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>2B</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M2 &bull; Jun 29 &bull; NRG Stadium, Houston</div>
+              <div class="bracket-team tbd"><span>1C</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>2F</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M3 &bull; Jun 29 &bull; Gillette Stadium</div>
+              <div class="bracket-team tbd"><span>1E</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>Best 3rd (A/B/C/D/F)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M4 &bull; Jun 29 &bull; Estadio Akron</div>
+              <div class="bracket-team tbd"><span>1F</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>2C</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M5 &bull; Jun 30 &bull; AT&amp;T Stadium, TX</div>
+              <div class="bracket-team tbd"><span>2E</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>2I</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M6 &bull; Jun 30 &bull; TBD</div>
+              <div class="bracket-team tbd"><span>1I</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>Best 3rd (C/D/F/G/H)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M7 &bull; Jun 30 &bull; TBD</div>
+              <div class="bracket-team winner"><span>&#127474;&#127485; Mexico (1A)</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>Best 3rd (C/E/F/H/I)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M8 &bull; Jul 1 &bull; TBD</div>
+              <div class="bracket-team tbd"><span>2D</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>2G</span></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- R16 LEFT -->
+        <div class="bracket-round">
+          <div class="round-header">Round of 16</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M1</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M2</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M3</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M4</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M5</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M6</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M7</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M8</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QF LEFT -->
+        <div class="bracket-round">
+          <div class="round-header">Quarter-Finals</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 9–10</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 9–10</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SF LEFT -->
+        <div class="bracket-round">
+          <div class="round-header">Semi-Finals</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 14–15</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINAL -->
+        <div class="bracket-final">
+          <div class="final-label">&#127942; FINAL &bull; Jul 19</div>
+          <div class="bracket-match final-match">
+            <div class="match-meta">MetLife Stadium, NJ &bull; Jul 19</div>
+            <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+            <div class="bracket-team tbd"><span>TBD</span></div>
+          </div>
+        </div>
+
+        <!-- SF RIGHT -->
+        <div class="bracket-round">
+          <div class="round-header">Semi-Finals</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 14–15</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QF RIGHT -->
+        <div class="bracket-round">
+          <div class="round-header">Quarter-Finals</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 9–10</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 9–10</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- R16 RIGHT -->
+        <div class="bracket-round">
+          <div class="round-header">Round of 16</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M9</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M10</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M11</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M12</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M13</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M14</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M15</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M16</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- R32 RIGHT (8 matches) -->
+        <div class="bracket-round">
+          <div class="round-header">Round of 32</div>
+          <div class="bracket-matches">
+
+            <div class="bracket-match">
+              <div class="match-meta">M9 &bull; Jul 1 &bull; TBD</div>
+              <div class="bracket-team tbd"><span>1G</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>Best 3rd (TBD)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M10 &bull; Jul 1 &bull; TBD</div>
+              <div class="bracket-team tbd"><span>1B</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M11 &bull; Jul 1 &bull; TBD</div>
+              <div class="bracket-team winner"><span>&#127482;&#127480; USA (1D)</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M12 &bull; Jul 2 &bull; TBD</div>
+              <div class="bracket-team tbd"><span>2H</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>2J</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M13 &bull; Jul 2 &bull; TBD</div>
+              <div class="bracket-team tbd"><span>1H</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M14 &bull; Jul 2 &bull; TBD</div>
+              <div class="bracket-team tbd"><span>1J</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>2K</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M15 &bull; Jul 3 &bull; TBD</div>
+              <div class="bracket-team tbd"><span>1K</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>2L</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M16 &bull; Jul 3 &bull; TBD</div>
+              <div class="bracket-team tbd"><span>1L</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /bracket-grid -->
+    </div><!-- /bracket-wrap -->
+  </div><!-- /bracket-outer -->
+</section>
+
+</main>
+
+<footer style="text-align:center;padding:2rem 1rem;color:var(--muted);font-size:0.78rem;border-top:1px solid var(--border);margin-top:2rem">
+  <p>2026 FIFA World Cup Tracker &bull; Data current as of <strong>June 20, 2026</strong></p>
+  <p style="margin-top:0.3rem">USA &bull; Canada &bull; Mexico &bull; 48 Teams &bull; 16 Venues &bull; June 11 – July 19, 2026</p>
+</footer>
+
+<script>
+function toggleSchedule(btn) {
+  const body = btn.nextElementSibling;
+  const arrow = btn.querySelector('.toggle-arrow');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+  const groupName = btn.querySelector('span').textContent.replace(' Schedule','').replace('📅 ','');
+  btn.querySelector('span').textContent = (isOpen ? '📅 ' : '📅 ') + groupName + ' Schedule';
+}
+
+// Smooth scroll for nav links
+document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Mobile bracket horizontal scroll hint
+(function() {
+  const bracketOuter = document.querySelector('.bracket-outer');
+  if (bracketOuter && window.innerWidth < 768) {
+    bracketOuter.style.overflowX = 'auto';
+    bracketOuter.style.webkitOverflowScrolling = 'touch';
+  }
+})();
+</script>
+</body>
+</html>
