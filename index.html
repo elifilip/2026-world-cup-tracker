@@ -151,6 +151,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 /* QUALIFIED BANNER */
 .qualified-banner{background:linear-gradient(90deg,rgba(26,122,74,0.2),rgba(26,122,74,0.05));border:1px solid rgba(74,222,128,0.3);border-radius:6px;padding:0.5rem 0.75rem;margin:0.75rem 0;font-size:0.8rem;color:#4ade80;display:flex;align-items:center;gap:0.5rem}
 
+.match-time{display:block;font-size:0.64rem;color:var(--gold);margin-top:2px;white-space:nowrap}
 @media(max-width:768px){
   .groups-grid{grid-template-columns:1fr}
   .bracket-outer{margin:0 -1rem;padding:0 0 1rem}
@@ -165,7 +166,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
   <div class="header-badge">Live Tracker</div>
   <h1>2026 FIFA <span>World Cup</span></h1>
   <p class="subtitle">USA &bull; Canada &bull; Mexico &nbsp;|&nbsp; 48 Teams &bull; 104 Matches</p>
-  <div class="last-updated">&#128197; Last updated: June 20, 2026</div>
+  <div class="last-updated" id="last-updated-el">&#128197; Last updated: June 20, 2026</div>
 </header>
 
 <nav>
@@ -232,7 +233,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
       </button>
       <div class="schedule-body">
         <table class="schedule-table">
-          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 11</td><td class="match-teams">&#127474;&#127485; Mexico <span class="score">2–0</span> South Africa &#127487;&#127462;</td><td class="venue-text">Estadio Azteca</td></tr>
+          <tr class="played" data-utc="2026-06-11T19:00:00Z"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 11</td><td class="match-teams">&#127474;&#127485; Mexico <span class="score">2–0</span> South Africa &#127487;&#127462;</td><td class="venue-text">Estadio Azteca</td></tr>
           <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 11</td><td class="match-teams">&#127472;&#127479; S. Korea <span class="score">2–1</span> Czechia &#127464;&#127487;</td><td class="venue-text">Estadio Akron</td></tr>
           <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 18</td><td class="match-teams">&#127464;&#127487; Czechia <span class="score">1–1</span> S. Africa &#127487;&#127462;</td><td class="venue-text">TBD</td></tr>
           <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 18</td><td class="match-teams">&#127474;&#127485; Mexico <span class="score">1–0</span> S. Korea &#127472;&#127479;</td><td class="venue-text">Estadio Akron</td></tr>
@@ -364,7 +365,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
       </button>
       <div class="schedule-body">
         <table class="schedule-table">
-          <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 12</td><td class="match-teams">&#127482;&#127480; USA <span class="score">4–1</span> Paraguay &#127477;&#127486;</td><td class="venue-text">TBD</td></tr>
+          <tr class="played" data-utc="2026-06-13T01:00:00Z"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 12</td><td class="match-teams">&#127482;&#127480; USA <span class="score">4–1</span> Paraguay &#127477;&#127486;</td><td class="venue-text">TBD</td></tr>
           <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 13</td><td class="match-teams">&#127462;&#127482; Australia <span class="score">2–0</span> Türkiye &#127481;&#127479;</td><td class="venue-text">TBD</td></tr>
           <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 19</td><td class="match-teams">&#127482;&#127480; USA <span class="score">2–0</span> Australia &#127462;&#127482;</td><td class="venue-text">TBD</td></tr>
           <tr class="played"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 19</td><td class="match-teams">&#127481;&#127479; Türkiye <span class="score">0–1</span> Paraguay &#127477;&#127486;</td><td class="venue-text">TBD</td></tr>
@@ -410,8 +411,8 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
         <table class="schedule-table">
           <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 14</td><td class="match-teams">&#127465;&#127466; Germany <span class="score">7–1</span> Curaçao &#127464;&#127484;</td><td class="venue-text">NRG Stadium, Houston</td></tr>
           <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 14</td><td class="match-teams">&#127464;&#127470; Ivory Coast <span class="score">1–0</span> Ecuador &#127466;&#127464;</td><td class="venue-text">TBD</td></tr>
-          <tr class="today"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127465;&#127466; Germany vs Ivory Coast &#127464;&#127470;</td><td class="venue-text">BMO Field, Toronto</td></tr>
-          <tr class="today"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127466;&#127464; Ecuador vs Curaçao &#127464;&#127484;</td><td class="venue-text">Children's Mercy Park, KC</td></tr>
+          <tr class="today" data-utc="2026-06-20T20:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127465;&#127466; Germany vs Ivory Coast &#127464;&#127470;</td><td class="venue-text">BMO Field, Toronto</td></tr>
+          <tr class="today" data-utc="2026-06-21T00:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127466;&#127464; Ecuador vs Curaçao &#127464;&#127484;</td><td class="venue-text">Children's Mercy Park, KC</td></tr>
           <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127466;&#127464; Ecuador vs Germany &#127465;&#127466;</td><td class="venue-text">MetLife Stadium, NJ</td></tr>
           <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127464;&#127484; Curaçao vs Ivory Coast &#127464;&#127470;</td><td class="venue-text">Lincoln Financial Field</td></tr>
         </table>
@@ -454,8 +455,8 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
         <table class="schedule-table">
           <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 14</td><td class="match-teams">&#127475;&#127473; Netherlands <span class="score">2–2</span> Japan &#127471;&#127477;</td><td class="venue-text">AT&amp;T Stadium, Dallas</td></tr>
           <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 14</td><td class="match-teams">&#127480;&#127466; Sweden <span class="score">5–1</span> Tunisia &#127481;&#127475;</td><td class="venue-text">TBD</td></tr>
-          <tr class="today"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127475;&#127473; Netherlands vs Sweden &#127480;&#127466;</td><td class="venue-text">NRG Stadium, Houston</td></tr>
-          <tr class="today"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127481;&#127475; Tunisia vs Japan &#127471;&#127477;</td><td class="venue-text">TBD</td></tr>
+          <tr class="today" data-utc="2026-06-20T17:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127475;&#127473; Netherlands vs Sweden &#127480;&#127466;</td><td class="venue-text">NRG Stadium, Houston</td></tr>
+          <tr class="today" data-utc="2026-06-20T16:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 20 &#11088;</td><td class="match-teams">&#127481;&#127475; Tunisia vs Japan &#127471;&#127477;</td><td class="venue-text">TBD</td></tr>
           <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127471;&#127477; Japan vs Sweden &#127480;&#127466;</td><td class="venue-text">AT&amp;T Stadium, Dallas</td></tr>
           <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 25</td><td class="match-teams">&#127481;&#127475; Tunisia vs Netherlands &#127475;&#127473;</td><td class="venue-text">TBD</td></tr>
         </table>
@@ -542,7 +543,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
         <table class="schedule-table">
           <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127466;&#127480; Spain <span class="score">0–0</span> Cape Verde &#127464;&#127483;</td><td class="venue-text">TBD</td></tr>
           <tr class="played"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127480;&#127462; Saudi Arabia <span class="score">1–1</span> Uruguay &#127482;&#127486;</td><td class="venue-text">TBD</td></tr>
-          <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127466;&#127480; Spain vs Saudi Arabia &#127480;&#127462;</td><td class="venue-text">Estadio Akron</td></tr>
+          <tr class="upcoming" data-utc="2026-06-21T16:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127466;&#127480; Spain vs Saudi Arabia &#127480;&#127462;</td><td class="venue-text">Estadio Akron</td></tr>
           <tr class="upcoming"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127482;&#127486; Uruguay vs Cape Verde &#127464;&#127483;</td><td class="venue-text">TBD</td></tr>
           <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127464;&#127483; Cape Verde vs Saudi Arabia &#127480;&#127462;</td><td class="venue-text">TBD</td></tr>
           <tr class="upcoming"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127482;&#127486; Uruguay vs Spain &#127466;&#127480;</td><td class="venue-text">Estadio Akron</td></tr>
@@ -1020,7 +1021,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 </main>
 
 <footer style="text-align:center;padding:2rem 1rem;color:var(--muted);font-size:0.78rem;border-top:1px solid var(--border);margin-top:2rem">
-  <p>2026 FIFA World Cup Tracker &bull; Data current as of <strong>June 20, 2026</strong></p>
+  <p>2026 FIFA World Cup Tracker &bull; Data current as of <strong id="footer-updated">June 20, 2026</strong></p>
   <p style="margin-top:0.3rem">USA &bull; Canada &bull; Mexico &bull; 48 Teams &bull; 16 Venues &bull; June 11 – July 19, 2026</p>
 </footer>
 
@@ -1052,6 +1053,37 @@ document.querySelectorAll('nav a[href^="#"]').forEach(link => {
     bracketOuter.style.webkitOverflowScrolling = 'touch';
   }
 })();
+
+// Local timezone display
+function fmtLocalTime(utcStr) {
+  return new Date(utcStr).toLocaleTimeString(undefined, {
+    hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+  });
+}
+function fmtLocalDateTime(utcStr) {
+  return new Date(utcStr).toLocaleString(undefined, {
+    month: 'long', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+  });
+}
+
+// Inject local kickoff times under each match date cell
+document.querySelectorAll('tr[data-utc]').forEach(function(row) {
+  var dateCell = row.querySelector('.match-date');
+  if (dateCell) {
+    var span = document.createElement('span');
+    span.className = 'match-time';
+    span.textContent = fmtLocalTime(row.dataset.utc);
+    dateCell.appendChild(span);
+  }
+});
+
+// Render last-updated timestamps in viewer's local timezone
+var UPDATE_UTC = '2026-06-20T14:00:00Z';
+var luEl = document.getElementById('last-updated-el');
+if (luEl) luEl.innerHTML = '&#128197; Last updated: ' + fmtLocalDateTime(UPDATE_UTC);
+var fuEl = document.getElementById('footer-updated');
+if (fuEl) fuEl.textContent = fmtLocalDateTime(UPDATE_UTC);
 </script>
 </body>
 </html>
