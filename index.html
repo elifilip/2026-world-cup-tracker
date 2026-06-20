@@ -152,6 +152,22 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 .qualified-banner{background:linear-gradient(90deg,rgba(26,122,74,0.2),rgba(26,122,74,0.05));border:1px solid rgba(74,222,128,0.3);border-radius:6px;padding:0.5rem 0.75rem;margin:0.75rem 0;font-size:0.8rem;color:#4ade80;display:flex;align-items:center;gap:0.5rem}
 
 .match-time{display:block;font-size:0.64rem;color:var(--gold);margin-top:2px;white-space:nowrap}
+
+/* UPCOMING MATCHES */
+.upcoming-wrap{overflow-x:auto}
+.upcoming-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.upcoming-table th{background:var(--card2);color:var(--gold);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:0.5rem 0.75rem;border-bottom:2px solid var(--border);white-space:nowrap;text-align:left}
+.upcoming-table td{padding:0.55rem 0.75rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.upcoming-table tr:last-child td{border-bottom:none}
+.upcoming-table tr:hover td{background:rgba(201,168,76,0.06)}
+.upcoming-date{white-space:nowrap;color:var(--muted);font-size:0.78rem}
+.upcoming-time{white-space:nowrap;color:var(--gold);font-size:0.78rem;font-weight:600}
+.upcoming-grp{display:inline-block;background:var(--card2);border:1px solid var(--border);border-radius:3px;padding:0.1rem 0.4rem;font-size:0.68rem;font-weight:700;color:var(--muted);white-space:nowrap}
+.upcoming-teams{font-weight:500;color:var(--text)}
+.upcoming-venue{color:var(--muted);font-size:0.78rem}
+.upcoming-expand-btn{display:block;width:100%;margin-top:0.75rem;padding:0.55rem 1rem;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:0.82rem;cursor:pointer;transition:all 0.2s}
+.upcoming-expand-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-bg)}
+
 @media(max-width:768px){
   .groups-grid{grid-template-columns:1fr}
   .bracket-outer{margin:0 -1rem;padding:0 0 1rem}
@@ -171,6 +187,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 
 <nav>
   <ul>
+    <li><a href="#upcoming">&#9201; Upcoming</a></li>
     <li><a href="#groups">&#127942; Group Stage</a></li>
     <li><a href="#thirds">&#127941; 3rd Place Rankings</a></li>
     <li><a href="#bracket">&#127358; R32 Bracket</a></li>
@@ -184,6 +201,31 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 </div>
 
 <main>
+
+<!-- ═══════════════════ UPCOMING MATCHES ═══════════════════ -->
+<section id="upcoming">
+  <div class="section-header">
+    <h2>&#9201; <span>Upcoming</span> Matches</h2>
+    <span class="section-badge" id="upcoming-badge">Loading…</span>
+  </div>
+  <div class="upcoming-wrap">
+    <table class="upcoming-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time (local)</th>
+          <th>Grp</th>
+          <th>Match</th>
+          <th>Venue</th>
+        </tr>
+      </thead>
+      <tbody id="upcoming-tbody"></tbody>
+    </table>
+    <button class="upcoming-expand-btn" id="upcoming-expand-btn" style="display:none" onclick="toggleUpcoming()">
+      Show all <span id="upcoming-remaining-count">0</span> remaining matches &#9660;
+    </button>
+  </div>
+</section>
 
 <!-- ═══════════════════ GROUP STAGE ═══════════════════ -->
 <section id="groups">
@@ -1077,6 +1119,87 @@ document.querySelectorAll('tr[data-utc]').forEach(function(row) {
     dateCell.appendChild(span);
   }
 });
+
+// ── Upcoming Matches Section ──────────────────────────────
+(function buildUpcoming() {
+  var now = new Date();
+  var rows = Array.from(document.querySelectorAll('.schedule-body tr[data-utc]'));
+  var future = rows.filter(function(r) { return new Date(r.dataset.utc) > now; });
+  future.sort(function(a, b) { return new Date(a.dataset.utc) - new Date(b.dataset.utc); });
+
+  var tbody = document.getElementById('upcoming-tbody');
+  var badge = document.getElementById('upcoming-badge');
+  var expandBtn = document.getElementById('upcoming-expand-btn');
+  var countEl = document.getElementById('upcoming-remaining-count');
+
+  if (!future.length) {
+    badge.textContent = 'No upcoming matches';
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td colspan="5" style="text-align:center;color:var(--muted);padding:1rem">All matches have been played.</td>';
+    tbody.appendChild(tr);
+    return;
+  }
+
+  badge.textContent = future.length + ' match' + (future.length !== 1 ? 'es' : '') + ' remaining';
+
+  var PREVIEW = 5;
+  future.forEach(function(srcRow, idx) {
+    var utcStr = srcRow.dataset.utc;
+    var d = new Date(utcStr);
+
+    // Date
+    var dateStr = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    // Time
+    var timeStr = d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+
+    // Group label – walk up to .group-card then find h3
+    var groupCard = srcRow.closest('.group-card');
+    var grpLabel = groupCard ? (groupCard.querySelector('h3') || {}).textContent || '' : '';
+
+    // Teams – clone cell, strip .score spans
+    var teamsCell = srcRow.querySelector('.match-teams');
+    var teamsClone = teamsCell ? teamsCell.cloneNode(true) : null;
+    if (teamsClone) teamsClone.querySelectorAll('.score').forEach(function(s) { s.remove(); });
+    var teamsText = teamsClone ? teamsClone.textContent.trim().replace(/\s+/g, ' ') : '';
+
+    // Venue
+    var venueCell = srcRow.querySelector('.venue-text');
+    var venue = venueCell ? venueCell.textContent.trim() : '';
+
+    var tr = document.createElement('tr');
+    if (idx >= PREVIEW) tr.style.display = 'none';
+    tr.innerHTML =
+      '<td class="upcoming-date">' + dateStr + '</td>' +
+      '<td class="upcoming-time">' + timeStr + '</td>' +
+      '<td><span class="upcoming-grp">' + grpLabel + '</span></td>' +
+      '<td class="upcoming-teams">' + teamsText + '</td>' +
+      '<td class="upcoming-venue">' + venue + '</td>';
+    tbody.appendChild(tr);
+  });
+
+  var hidden = future.length - PREVIEW;
+  if (hidden > 0) {
+    countEl.textContent = hidden;
+    expandBtn.style.display = 'block';
+  }
+})();
+
+var _upcomingExpanded = false;
+function toggleUpcoming() {
+  _upcomingExpanded = !_upcomingExpanded;
+  var btn = document.getElementById('upcoming-expand-btn');
+  var countEl = document.getElementById('upcoming-remaining-count');
+  document.querySelectorAll('#upcoming-tbody tr').forEach(function(tr, idx) {
+    if (idx >= 5) tr.style.display = _upcomingExpanded ? '' : 'none';
+  });
+  if (_upcomingExpanded) {
+    btn.innerHTML = 'Show fewer &#9650;';
+  } else {
+    var hidden = document.querySelectorAll('#upcoming-tbody tr').length - 5;
+    btn.innerHTML = 'Show all <span id="upcoming-remaining-count">' + hidden + '</span> remaining matches &#9660;';
+  }
+}
+// ─────────────────────────────────────────────────────────
 
 // Render last-updated timestamps in viewer's local timezone
 var UPDATE_UTC = '2026-06-20T14:00:00Z';
