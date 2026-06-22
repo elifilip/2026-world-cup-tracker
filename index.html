@@ -153,18 +153,19 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 
 .match-time{display:block;font-size:0.64rem;color:var(--gold);margin-top:2px;white-space:nowrap}
 
-/* UPCOMING MATCHES */
+/* UPCOMING MATCHES & RECENT RESULTS */
 .upcoming-wrap{overflow-x:auto}
-.upcoming-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.upcoming-table{border-collapse:collapse;font-size:0.85rem}
 .upcoming-table th{background:var(--card2);color:var(--gold);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:0.5rem 0.75rem;border-bottom:2px solid var(--border);white-space:nowrap;text-align:left}
-.upcoming-table td{padding:0.55rem 0.75rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.upcoming-table td{padding:0.5rem 0.65rem;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap}
 .upcoming-table tr:last-child td{border-bottom:none}
 .upcoming-table tr:hover td{background:rgba(201,168,76,0.06)}
-.upcoming-date{white-space:nowrap;color:var(--muted);font-size:0.78rem}
-.upcoming-time{white-space:nowrap;color:var(--gold);font-size:0.78rem;font-weight:600}
-.upcoming-grp{display:inline-block;background:var(--card2);border:1px solid var(--border);border-radius:3px;padding:0.1rem 0.4rem;font-size:0.68rem;font-weight:700;color:var(--muted);white-space:nowrap}
+.upcoming-date{color:var(--muted);font-size:0.78rem}
+.upcoming-time{color:var(--gold);font-size:0.78rem;font-weight:600}
+.upcoming-grp{display:inline-block;background:var(--card2);border:1px solid var(--border);border-radius:3px;padding:0.1rem 0.4rem;font-size:0.68rem;font-weight:700;color:var(--muted)}
 .upcoming-teams{font-weight:500;color:var(--text)}
 .upcoming-venue{color:var(--muted);font-size:0.78rem}
+.result-score{display:inline-block;background:var(--card2);border:1px solid var(--border);border-radius:4px;padding:0.1rem 0.5rem;font-size:0.8rem;font-weight:700;color:var(--gold);min-width:3rem;text-align:center}
 .upcoming-expand-btn{display:block;width:100%;margin-top:0.75rem;padding:0.55rem 1rem;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:0.82rem;cursor:pointer;transition:all 0.2s}
 .upcoming-expand-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-bg)}
 
@@ -187,6 +188,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 
 <nav>
   <ul>
+    <li><a href="#results">&#127937; Results</a></li>
     <li><a href="#upcoming">&#9201; Upcoming</a></li>
     <li><a href="#groups">&#127942; Group Stage</a></li>
     <li><a href="#thirds">&#127941; 3rd Place Rankings</a></li>
@@ -201,6 +203,32 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 </div>
 
 <main>
+
+<!-- ═══════════════════ RECENT RESULTS ═══════════════════ -->
+<section id="results">
+  <div class="section-header">
+    <h2>&#127937; <span>Recent</span> Results</h2>
+    <span class="section-badge" id="results-badge">Loading…</span>
+  </div>
+  <div class="upcoming-wrap">
+    <table class="upcoming-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time (local)</th>
+          <th>Grp</th>
+          <th>Match</th>
+          <th>Score</th>
+          <th>Venue</th>
+        </tr>
+      </thead>
+      <tbody id="results-tbody"></tbody>
+    </table>
+    <button class="upcoming-expand-btn" id="results-expand-btn" style="display:none" onclick="toggleResults()">
+      Show all <span id="results-remaining-count">0</span> earlier results &#9660;
+    </button>
+  </div>
+</section>
 
 <!-- ═══════════════════ UPCOMING MATCHES ═══════════════════ -->
 <section id="upcoming">
@@ -509,7 +537,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
     <div class="group-card">
       <div class="group-card-header">
         <h3>Group G</h3>
-        <span class="matchday-badge">Matchday 1 of 3 &#10003;</span>
+        <span class="matchday-badge complete">Matchday 2 of 3 &#10003;</span>
       </div>
       <table class="standings-table">
         <thead><tr>
@@ -518,15 +546,15 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
         <tbody>
           <tr>
             <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127470;&#127479; Iran</div></td>
-            <td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">1</td>
+            <td>2</td><td>0</td><td>2</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">2</td>
           </tr>
           <tr>
-            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127475;&#127487; New Zealand</div></td>
-            <td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">1</td>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127463;&#127466; Belgium</div></td>
+            <td>2</td><td>0</td><td>2</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">2</td>
           </tr>
           <tr>
-            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127463;&#127466; Belgium</div></td>
-            <td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td>
+            <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127475;&#127487; New Zealand</div></td>
+            <td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">1</td>
           </tr>
           <tr>
             <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127466;&#127468; Egypt</div></td>
@@ -541,7 +569,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
         <table class="schedule-table">
           <tr class="played" data-utc="2026-06-15T19:00:00Z"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127463;&#127466; Belgium <span class="score">1–1</span> Egypt &#127466;&#127468;</td><td class="venue-text">Seattle</td></tr>
           <tr class="played" data-utc="2026-06-16T01:00:00Z"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127470;&#127479; Iran <span class="score">2–2</span> New Zealand &#127475;&#127487;</td><td class="venue-text">Los Angeles (Inglewood)</td></tr>
-          <tr class="upcoming" data-utc="2026-06-21T19:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127463;&#127466; Belgium vs Iran &#127470;&#127479;</td><td class="venue-text">Los Angeles (Inglewood)</td></tr>
+          <tr class="played" data-utc="2026-06-21T19:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127463;&#127466; Belgium <span class="score">0&#8211;0</span> Iran &#127470;&#127479;</td><td class="venue-text">Los Angeles (Inglewood)</td></tr>
           <tr class="upcoming" data-utc="2026-06-22T01:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127475;&#127487; New Zealand vs Egypt &#127466;&#127468;</td><td class="venue-text">Vancouver</td></tr>
           <tr class="upcoming" data-utc="2026-06-27T03:00:00Z"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127466;&#127468; Egypt vs Iran &#127470;&#127479;</td><td class="venue-text">Seattle</td></tr>
           <tr class="upcoming" data-utc="2026-06-27T03:00:00Z"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127475;&#127487; New Zealand vs Belgium &#127463;&#127466;</td><td class="venue-text">Vancouver</td></tr>
@@ -553,7 +581,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
     <div class="group-card">
       <div class="group-card-header">
         <h3>Group H</h3>
-        <span class="matchday-badge">Matchday 2 of 3 &#9679; IN PROGRESS</span>
+        <span class="matchday-badge complete">Matchday 2 of 3 &#10003;</span>
       </div>
       <table class="standings-table">
         <thead><tr>
@@ -566,11 +594,11 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
           </tr>
           <tr>
             <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127482;&#127486; Uruguay</div></td>
-            <td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td>
+            <td>2</td><td>0</td><td>2</td><td>0</td><td>3</td><td>3</td><td>0</td><td class="pts-cell">2</td>
           </tr>
           <tr>
             <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127464;&#127483; Cape Verde</div></td>
-            <td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">1</td>
+            <td>2</td><td>0</td><td>2</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">2</td>
           </tr>
           <tr>
             <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127480;&#127462; Saudi Arabia</div></td>
@@ -586,7 +614,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
           <tr class="played" data-utc="2026-06-15T16:00:00Z"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127466;&#127480; Spain <span class="score">0–0</span> Cape Verde &#127464;&#127483;</td><td class="venue-text">Atlanta</td></tr>
           <tr class="played" data-utc="2026-06-15T22:00:00Z"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 15</td><td class="match-teams">&#127480;&#127462; Saudi Arabia <span class="score">1–1</span> Uruguay &#127482;&#127486;</td><td class="venue-text">Miami (Miami Gardens)</td></tr>
           <tr class="played" data-utc="2026-06-21T16:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127466;&#127480; Spain <span class="score">4&#8211;0</span> Saudi Arabia &#127480;&#127462;</td><td class="venue-text">Atlanta</td></tr>
-          <tr class="upcoming" data-utc="2026-06-21T22:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127482;&#127486; Uruguay vs Cape Verde &#127464;&#127483;</td><td class="venue-text">Miami (Miami Gardens)</td></tr>
+          <tr class="played" data-utc="2026-06-21T22:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 21</td><td class="match-teams">&#127482;&#127486; Uruguay <span class="score">2&#8211;2</span> Cape Verde &#127464;&#127483;</td><td class="venue-text">Miami (Miami Gardens)</td></tr>
           <tr class="upcoming" data-utc="2026-06-27T00:00:00Z"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127464;&#127483; Cape Verde vs Saudi Arabia &#127480;&#127462;</td><td class="venue-text">Houston</td></tr>
           <tr class="upcoming" data-utc="2026-06-27T00:00:00Z"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 26</td><td class="match-teams">&#127482;&#127486; Uruguay vs Spain &#127466;&#127480;</td><td class="venue-text">Guadalajara (Zapopan)</td></tr>
         </table>
@@ -778,7 +806,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
     <h2>&#127941; <span>3rd-Place</span> Rankings</h2>
     <span class="section-badge">Live</span>
   </div>
-  <p class="thirds-note">8 best 3rd-place teams advance to Round of 32. Rankings updated in real time. Groups A–F now have 2 games played; G–L have 1 game played — rankings are not yet directly comparable across groups.</p>
+  <p class="thirds-note">8 best 3rd-place teams advance to Round of 32. Rankings updated in real time. Groups A–F &amp; H have completed MD2; G &amp; I–L have completed MD1 — rankings are preliminary until all groups finish MD3.</p>
   <div class="thirds-table-wrap">
     <table class="thirds-table">
       <thead><tr>
@@ -788,9 +816,9 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
         <tr class="contention"><td class="rank-num">1</td><td>&#127480;&#127466; Sweden</td><td><span class="group-tag">F</span></td><td>2</td><td>1</td><td>0</td><td>1</td><td>6</td><td>6</td><td>0</td><td class="pts-cell">3</td></tr>
         <tr class="contention"><td class="rank-num">2</td><td>&#127988;󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</td><td><span class="group-tag">C</span></td><td>2</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">3</td></tr>
         <tr class="contention"><td class="rank-num">3</td><td>&#127477;&#127486; Paraguay</td><td><span class="group-tag">D</span></td><td>2</td><td>1</td><td>0</td><td>1</td><td>2</td><td>4</td><td class="gd-neg">-2</td><td class="pts-cell">3</td></tr>
-        <tr class="contention"><td class="rank-num">4</td><td>&#127464;&#127465; DR Congo</td><td><span class="group-tag">K</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td></tr>
-        <tr class="contention"><td class="rank-num">5</td><td>&#127463;&#127466; Belgium</td><td><span class="group-tag">G</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td></tr>
-        <tr class="contention"><td class="rank-num">6</td><td>&#127464;&#127483; Cape Verde</td><td><span class="group-tag">H</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pts-cell">1</td></tr>
+        <tr class="contention"><td class="rank-num">4</td><td>&#127464;&#127483; Cape Verde</td><td><span class="group-tag">H</span></td><td>2</td><td>0</td><td>2</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">2</td></tr>
+        <tr class="contention"><td class="rank-num">5</td><td>&#127475;&#127487; New Zealand</td><td><span class="group-tag">G</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">1</td></tr>
+        <tr class="contention"><td class="rank-num">6</td><td>&#127464;&#127465; DR Congo</td><td><span class="group-tag">K</span></td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="pts-cell">1</td></tr>
         <tr class="contention"><td class="rank-num">7</td><td>&#127464;&#127487; Czechia</td><td><span class="group-tag">A</span></td><td>2</td><td>0</td><td>1</td><td>1</td><td>2</td><td>3</td><td class="gd-neg">-1</td><td class="pts-cell">1</td></tr>
         <tr class="contention"><td class="rank-num">8</td><td>&#127463;&#127462; Bosnia &amp; Herz.</td><td><span class="group-tag">B</span></td><td>2</td><td>0</td><td>1</td><td>1</td><td>2</td><td>5</td><td class="gd-neg">-3</td><td class="pts-cell">1</td></tr>
         <tr class="thirds-divider"><td colspan="11">&#8212; Currently below qualification line &#8212;</td></tr>
@@ -840,7 +868,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 
             <div class="bracket-match">
               <div class="match-meta">M3 &bull; Jun 29 &bull; Gillette Stadium</div>
-              <div class="bracket-team tbd"><span>1E</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team winner"><span>&#127465;&#127466; Germany (1E)</span><span class="bracket-score">–</span></div>
               <div class="bracket-team tbd"><span>Best 3rd (A/B/C/D/F)</span></div>
             </div>
 
@@ -1120,6 +1148,79 @@ document.querySelectorAll('tr[data-utc]').forEach(function(row) {
   }
 });
 
+// ── Recent Results Section ────────────────────────────────
+(function buildResults() {
+  var rows = Array.from(document.querySelectorAll('.schedule-body tr.played'));
+  rows.sort(function(a, b) { return new Date(b.dataset.utc) - new Date(a.dataset.utc); });
+
+  var tbody = document.getElementById('results-tbody');
+  var badge = document.getElementById('results-badge');
+  var expandBtn = document.getElementById('results-expand-btn');
+  var countEl = document.getElementById('results-remaining-count');
+
+  if (!rows.length) {
+    badge.textContent = 'No results yet';
+    return;
+  }
+  badge.textContent = rows.length + ' match' + (rows.length !== 1 ? 'es' : '') + ' played';
+
+  var PREVIEW = 5;
+  rows.forEach(function(srcRow, idx) {
+    var utcStr = srcRow.dataset.utc;
+    var d = new Date(utcStr);
+    var dateStr = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    var timeStr = d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+
+    var groupCard = srcRow.closest('.group-card');
+    var grpLabel = groupCard ? (groupCard.querySelector('h3') || {}).textContent || '' : '';
+
+    var teamsCell = srcRow.querySelector('.match-teams');
+    var scoreEl = teamsCell ? teamsCell.querySelector('.score') : null;
+    var scoreText = scoreEl ? scoreEl.textContent.trim() : '–';
+
+    var teamsClone = teamsCell ? teamsCell.cloneNode(true) : null;
+    if (teamsClone) teamsClone.querySelectorAll('.score').forEach(function(s) { s.remove(); });
+    var teamsText = teamsClone ? teamsClone.textContent.trim().replace(/\s+/g, ' ') : '';
+
+    var venueCell = srcRow.querySelector('.venue-text');
+    var venue = venueCell ? venueCell.textContent.trim() : '';
+
+    var tr = document.createElement('tr');
+    if (idx >= PREVIEW) tr.style.display = 'none';
+    tr.innerHTML =
+      '<td class="upcoming-date">' + dateStr + '</td>' +
+      '<td class="upcoming-time">' + timeStr + '</td>' +
+      '<td><span class="upcoming-grp">' + grpLabel + '</span></td>' +
+      '<td class="upcoming-teams">' + teamsText + '</td>' +
+      '<td><span class="result-score">' + scoreText + '</span></td>' +
+      '<td class="upcoming-venue">' + venue + '</td>';
+    tbody.appendChild(tr);
+  });
+
+  var hidden = rows.length - PREVIEW;
+  if (hidden > 0) {
+    countEl.textContent = hidden;
+    expandBtn.style.display = 'block';
+  }
+})();
+
+var _resultsExpanded = false;
+function toggleResults() {
+  _resultsExpanded = !_resultsExpanded;
+  var btn = document.getElementById('results-expand-btn');
+  var countEl = document.getElementById('results-remaining-count');
+  document.querySelectorAll('#results-tbody tr').forEach(function(tr, idx) {
+    if (idx >= 5) tr.style.display = _resultsExpanded ? '' : 'none';
+  });
+  if (_resultsExpanded) {
+    btn.innerHTML = 'Show fewer &#9650;';
+  } else {
+    var hidden = document.querySelectorAll('#results-tbody tr').length - 5;
+    btn.innerHTML = 'Show all <span id="results-remaining-count">' + hidden + '</span> earlier results &#9660;';
+  }
+}
+// ─────────────────────────────────────────────────────────
+
 // ── Upcoming Matches Section ──────────────────────────────
 (function buildUpcoming() {
   var now = new Date();
@@ -1202,7 +1303,7 @@ function toggleUpcoming() {
 // ─────────────────────────────────────────────────────────
 
 // Render last-updated timestamps in viewer's local timezone
-var UPDATE_UTC = '2026-06-21T20:00:00Z';
+var UPDATE_UTC = '2026-06-22T00:00:00Z';
 var luEl = document.getElementById('last-updated-el');
 if (luEl) luEl.innerHTML = '&#128197; Last updated: ' + fmtLocalDateTime(UPDATE_UTC);
 var fuEl = document.getElementById('footer-updated');
