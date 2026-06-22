@@ -155,7 +155,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 
 /* UPCOMING MATCHES & RECENT RESULTS */
 .upcoming-wrap{overflow-x:auto}
-.upcoming-table{border-collapse:collapse;font-size:0.85rem}
+.upcoming-table{width:100%;border-collapse:collapse;font-size:0.85rem}
 .upcoming-table th{background:var(--card2);color:var(--gold);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:0.5rem 0.75rem;border-bottom:2px solid var(--border);white-space:nowrap;text-align:left}
 .upcoming-table td{padding:0.5rem 0.65rem;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap}
 .upcoming-table tr:last-child td{border-bottom:none}
@@ -169,6 +169,9 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 .upcoming-expand-btn{display:block;width:100%;margin-top:0.75rem;padding:0.55rem 1rem;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:0.82rem;cursor:pointer;transition:all 0.2s}
 .upcoming-expand-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-bg)}
 
+@media(min-width:769px){
+  nav ul{justify-content:center}
+}
 @media(max-width:768px){
   .groups-grid{grid-template-columns:1fr}
   .bracket-outer{margin:0 -1rem;padding:0 0 1rem}
