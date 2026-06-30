@@ -136,6 +136,9 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 .bracket-team:last-child{border-bottom:none}
 .bracket-team.winner{background:rgba(201,168,76,0.12);font-weight:700;color:#fff}
 .bracket-team.tbd{color:var(--muted);font-style:italic}
+.bracket-team.adv{background:rgba(26,122,74,0.12);font-weight:700;color:#fff}
+.bracket-team.elim{opacity:0.45}
+.bracket-team.elim span:first-child{text-decoration:line-through;color:var(--muted)}
 .bracket-score{font-weight:700;color:var(--gold);font-size:0.75rem}
 
 /* CONNECTOR LINES */
@@ -187,16 +190,16 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
   <div class="header-badge">Live Tracker</div>
   <h1>2026 FIFA <span>World Cup</span></h1>
   <p class="subtitle">USA &bull; Canada &bull; Mexico &nbsp;|&nbsp; 48 Teams &bull; 104 Matches</p>
-  <div class="last-updated" id="last-updated-el">&#128197; Last updated: June 28, 2026</div>
+  <div class="last-updated" id="last-updated-el">&#128197; Last updated: June 30, 2026</div>
 </header>
 
 <nav>
   <ul>
     <li><a href="#results">&#127937; Results</a></li>
     <li><a href="#upcoming">&#9201; Upcoming</a></li>
-    <li><a href="#groups">&#127942; Group Stage</a></li>
-    <li><a href="#thirds">&#127941; 3rd Place Rankings</a></li>
     <li><a href="#bracket">&#127358; R32 Bracket</a></li>
+    <li><a href="#thirds">&#127941; 3rd Place Rankings</a></li>
+    <li><a href="#groups">&#127942; Group Stage</a></li>
   </ul>
 </nav>
 
@@ -259,6 +262,293 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
   </div>
 </section>
 
+<!-- ═══════════════════ BRACKET ═══════════════════ -->
+<section id="bracket" class="bracket-section">
+  <div class="section-header">
+    <h2>&#127358; Round of <span>32</span> Bracket</h2>
+    <span class="section-badge">Jun 28 – Jul 13</span>
+  </div>
+  <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;">&#8592; Scroll horizontally on mobile &nbsp;|&nbsp; R32 runs June 28 – July 3, 2026</p>
+
+  <div class="bracket-outer">
+    <div class="bracket-wrap">
+
+      <!-- LEFT HALF LABEL -->
+      <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:0 0.25rem">
+        <span>&#9664; Left Half</span><span>Right Half &#9654;</span>
+      </div>
+
+      <div class="bracket-grid">
+
+        <!-- R32 LEFT (8 matches) -->
+        <div class="bracket-round">
+          <div class="round-header">Round of 32</div>
+          <div class="bracket-matches">
+
+            <div class="bracket-match">
+              <div class="match-meta">M1 &bull; Jun 28 &bull; SoFi Stadium, LA</div>
+              <div class="bracket-team elim"><span>&#127487;&#127462; South Africa (2A)</span><span class="bracket-score">0&#8211;1</span></div>
+              <div class="bracket-team adv"><span>&#127464;&#127462; Canada (2B)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M2 &bull; Jun 29 &bull; NRG Stadium, Houston</div>
+              <div class="bracket-team adv"><span>&#127463;&#127479; Brazil (1C)</span><span class="bracket-score">2&#8211;1</span></div>
+              <div class="bracket-team elim"><span>&#127471;&#127477; Japan (2F)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M3 &bull; Jun 29 &bull; Gillette Stadium</div>
+              <div class="bracket-team adv"><span>&#127465;&#127466; Germany (1E)</span><span class="bracket-score">1&#8211;1 (pens)</span></div>
+              <div class="bracket-team elim"><span>&#127477;&#127486; Paraguay (3D)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M4 &bull; Jun 29 &bull; Estadio Akron</div>
+              <div class="bracket-team winner"><span>&#127475;&#127473; Netherlands (1F)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127474;&#127462; Morocco (2C)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M5 &bull; Jun 30 &bull; AT&amp;T Stadium, TX</div>
+              <div class="bracket-team winner"><span>&#127464;&#127470; Ivory Coast (2E)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127475;&#127476; Norway (2I)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M6 &bull; Jun 30 &bull; MetLife Stadium, NJ</div>
+              <div class="bracket-team winner"><span>&#127467;&#127479; France (1I)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127480;&#127466; Sweden (3F)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M7 &bull; Jun 30 &bull; Estadio Azteca, Mexico City</div>
+              <div class="bracket-team winner"><span>&#127474;&#127485; Mexico (1A)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127466;&#127464; Ecuador (3E)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M8 &bull; Jul 3 &bull; AT&amp;T Stadium, TX</div>
+              <div class="bracket-team winner"><span>&#127462;&#127482; Australia (2D)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127466;&#127468; Egypt (2G)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- R16 LEFT -->
+        <div class="bracket-round">
+          <div class="round-header">Round of 16</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M1</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M2</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M3</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M4</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M5</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M6</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M7</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M8</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QF LEFT -->
+        <div class="bracket-round">
+          <div class="round-header">Quarter-Finals</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 9–10</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 9–10</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SF LEFT -->
+        <div class="bracket-round">
+          <div class="round-header">Semi-Finals</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 14–15</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINAL -->
+        <div class="bracket-final">
+          <div class="final-label">&#127942; FINAL &bull; Jul 19</div>
+          <div class="bracket-match final-match">
+            <div class="match-meta">MetLife Stadium, NJ &bull; Jul 19</div>
+            <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+            <div class="bracket-team tbd"><span>TBD</span></div>
+          </div>
+        </div>
+
+        <!-- SF RIGHT -->
+        <div class="bracket-round">
+          <div class="round-header">Semi-Finals</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 14–15</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QF RIGHT -->
+        <div class="bracket-round">
+          <div class="round-header">Quarter-Finals</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 9–10</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 9–10</div>
+              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>TBD</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- R16 RIGHT -->
+        <div class="bracket-round">
+          <div class="round-header">Round of 16</div>
+          <div class="bracket-matches">
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M9</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M10</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M11</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M12</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M13</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M14</span></div>
+            </div>
+            <div class="bracket-match">
+              <div class="match-meta">TBD &bull; Jul 5–6</div>
+              <div class="bracket-team tbd"><span>W M15</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M16</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- R32 RIGHT (8 matches) -->
+        <div class="bracket-round">
+          <div class="round-header">Round of 32</div>
+          <div class="bracket-matches">
+
+            <div class="bracket-match">
+              <div class="match-meta">M9 &bull; Jul 1 &bull; Lumen Field, Seattle</div>
+              <div class="bracket-team winner"><span>&#127463;&#127466; Belgium (1G)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127480;&#127475; Senegal (3I)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M10 &bull; Jul 2 &bull; BC Place, Vancouver</div>
+              <div class="bracket-team winner"><span>&#127464;&#127469; Switzerland (1B)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127465;&#127487; Algeria (3J)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M11 &bull; Jul 1 &bull; Levi's Stadium, San Jose</div>
+              <div class="bracket-team winner"><span>&#127482;&#127480; USA (1D)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127463;&#127462; Bosnia &amp; Herz. (3B)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M12 &bull; Jul 3 &bull; Hard Rock Stadium, Miami</div>
+              <div class="bracket-team winner"><span>&#127462;&#127479; Argentina (1J)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127464;&#127483; Cape Verde (2H)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M13 &bull; Jul 2 &bull; SoFi Stadium, Los Angeles</div>
+              <div class="bracket-team winner"><span>&#127466;&#127480; Spain (1H)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127462;&#127481; Austria (2J)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M14 &bull; Jul 3 &bull; Arrowhead Stadium, Kansas City</div>
+              <div class="bracket-team winner"><span>&#127464;&#127476; Colombia (1K)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127468;&#127469; Ghana (3L)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M15 &bull; Jul 2 &bull; BMO Field, Toronto</div>
+              <div class="bracket-team winner"><span>&#127477;&#127481; Portugal (2K)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127469;&#127479; Croatia (2L)</span></div>
+            </div>
+
+            <div class="bracket-match">
+              <div class="match-meta">M16 &bull; Jul 1 &bull; Mercedes-Benz Stadium, Atlanta</div>
+              <div class="bracket-team winner"><span>&#127988;󠁧󠁢󠁬󠁮󠁧󠁿 England (1L)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team winner"><span>&#127464;&#127465; DR Congo (3K)</span></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /bracket-grid -->
+    </div><!-- /bracket-wrap -->
+  </div><!-- /bracket-outer -->
+</section>
+
+<!-- ═══════════════════ THIRD PLACE ═══════════════════ -->
+<section id="thirds" class="thirds-section">
+  <div class="section-header">
+    <h2>&#127941; <span>3rd-Place</span> Rankings</h2>
+    <span class="section-badge">Live</span>
+  </div>
+  <p class="thirds-note">8 best 3rd-place teams advance to Round of 32. &#10003; = qualified. &#10007; = eliminated. All group stage matches now complete.</p>
+  <div class="thirds-table-wrap">
+    <table class="thirds-table">
+      <thead><tr>
+        <th>Rank</th><th>Team</th><th>Grp</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+      </tr></thead>
+      <tbody>
+        <tr class="qualified-row"><td class="rank-num">1</td><td>&#127464;&#127465; DR Congo &#10003;</td><td><span class="group-tag">K</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>4</td><td>3</td><td class="gd-pos">+1</td><td class="pts-cell">4</td></tr>
+        <tr class="qualified-row"><td class="rank-num">2</td><td>&#127480;&#127466; Sweden &#10003;</td><td><span class="group-tag">F</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>7</td><td>7</td><td>0</td><td class="pts-cell">4</td></tr>
+        <tr class="qualified-row"><td class="rank-num">3</td><td>&#127466;&#127464; Ecuador &#10003;</td><td><span class="group-tag">E</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">4</td></tr>
+        <tr class="qualified-row"><td class="rank-num">4</td><td>&#127468;&#127469; Ghana &#10003;</td><td><span class="group-tag">L</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">4</td></tr>
+        <tr class="qualified-row"><td class="rank-num">5</td><td>&#127463;&#127462; Bosnia &amp; Herz. &#10003;</td><td><span class="group-tag">B</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>5</td><td>6</td><td class="gd-neg">-1</td><td class="pts-cell">4</td></tr>
+        <tr class="qualified-row"><td class="rank-num">6</td><td>&#127465;&#127487; Algeria &#10003;</td><td><span class="group-tag">J</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>5</td><td>7</td><td class="gd-neg">-2</td><td class="pts-cell">4</td></tr>
+        <tr class="qualified-row"><td class="rank-num">7</td><td>&#127477;&#127486; Paraguay &#10003;</td><td><span class="group-tag">D</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>2</td><td>4</td><td class="gd-neg">-2</td><td class="pts-cell">4</td></tr>
+        <tr class="qualified-row"><td class="rank-num">8</td><td>&#127480;&#127475; Senegal &#10003;</td><td><span class="group-tag">I</span></td><td>3</td><td>1</td><td>0</td><td>2</td><td>8</td><td>6</td><td class="gd-pos">+2</td><td class="pts-cell">3</td></tr>
+        <tr class="thirds-divider"><td colspan="11">&#8212; Did not qualify &#8212;</td></tr>
+        <tr><td class="rank-num">9</td><td>&#127470;&#127479; Iran</td><td><span class="group-tag">G</span></td><td>3</td><td>0</td><td>3</td><td>0</td><td>3</td><td>3</td><td>0</td><td class="pts-cell">3</td></tr>
+        <tr><td class="rank-num">10</td><td>&#127472;&#127479; South Korea</td><td><span class="group-tag">A</span></td><td>3</td><td>1</td><td>0</td><td>2</td><td>2</td><td>3</td><td class="gd-neg">-1</td><td class="pts-cell">3</td></tr>
+        <tr><td class="rank-num">11</td><td>&#127988;󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</td><td><span class="group-tag">C</span></td><td>3</td><td>1</td><td>0</td><td>2</td><td>1</td><td>4</td><td class="gd-neg">-3</td><td class="pts-cell">3</td></tr>
+        <tr class="eliminated-row"><td class="rank-num">12</td><td>&#127482;&#127486; Uruguay &#10007;</td><td><span class="group-tag">H</span></td><td>3</td><td>0</td><td>2</td><td>1</td><td>3</td><td>4</td><td class="gd-neg">-1</td><td class="pts-cell">2</td></tr>
+            </tbody>
+    </table>
+  </div>
+</section>
+
 <!-- ═══════════════════ GROUP STAGE ═══════════════════ -->
 <section id="groups">
   <div class="section-header">
@@ -268,7 +558,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 
   <div class="qualified-banner">
     <span>&#9989;</span>
-    <span><strong>Mexico</strong>, <strong>South Africa</strong> (A), <strong>Switzerland</strong>, <strong>Canada</strong> (B), <strong>Brazil</strong>, <strong>Morocco</strong> (C), <strong>USA</strong>, <strong>Australia</strong> (D), <strong>Germany</strong>, <strong>Ivory Coast</strong> (E), <strong>Netherlands</strong>, <strong>Japan</strong> (F), <strong>Belgium</strong>, <strong>Egypt</strong> (G), <strong>Spain</strong>, <strong>Cape Verde</strong> (H), <strong>France</strong>, <strong>Norway</strong> (I), <strong>Colombia</strong>, <strong>Portugal</strong> (K), <strong>England</strong>, <strong>Croatia</strong> (L) have clinched Round of 32 spots. Group J plays MD3 on Jun 28.</span>
+    <span><strong>Mexico</strong>, <strong>South Africa</strong> (A), <strong>Switzerland</strong>, <strong>Canada</strong> (B), <strong>Brazil</strong>, <strong>Morocco</strong> (C), <strong>USA</strong>, <strong>Australia</strong> (D), <strong>Germany</strong>, <strong>Ivory Coast</strong> (E), <strong>Netherlands</strong>, <strong>Japan</strong> (F), <strong>Belgium</strong>, <strong>Egypt</strong> (G), <strong>Spain</strong>, <strong>Cape Verde</strong> (H), <strong>France</strong>, <strong>Norway</strong> (I), <strong>Colombia</strong>, <strong>Portugal</strong> (K), <strong>England</strong>, <strong>Croatia</strong> (L) , <strong>Argentina</strong>, <strong>Austria</strong> (J) have clinched Round of 32 spots. All group stage matches complete.</span>
   </div>
 
   <div class="groups-grid">
@@ -673,7 +963,7 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
     <div class="group-card">
       <div class="group-card-header">
         <h3>Group J</h3>
-        <span class="matchday-badge complete">Matchday 2 of 3 &#10003;</span>
+        <span class="matchday-badge complete">Matchday 3 of 3 &#10003;</span>
       </div>
       <table class="standings-table">
         <thead><tr>
@@ -682,19 +972,19 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
         <tbody>
           <tr class="qualified-row">
             <td><div class="team-cell"><span class="pos-badge pos-1">1</span>&#127462;&#127479; Argentina<span class="clinched-tag">CLINCHED</span></div></td>
-            <td>2</td><td>2</td><td>0</td><td>0</td><td>5</td><td>0</td><td class="gd-pos">+5</td><td class="pts-cell">6</td>
+            <td>3</td><td>3</td><td>0</td><td>0</td><td>8</td><td>1</td><td class="gd-pos">+7</td><td class="pts-cell">9</td>
           </tr>
           <tr class="qualified-row">
-            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127462;&#127481; Austria</div></td>
-            <td>2</td><td>1</td><td>0</td><td>1</td><td>3</td><td>3</td><td>0</td><td class="pts-cell">3</td>
+            <td><div class="team-cell"><span class="pos-badge pos-2">2</span>&#127462;&#127481; Austria<span class="clinched-tag">CLINCHED</span></div></td>
+            <td>3</td><td>1</td><td>1</td><td>1</td><td>6</td><td>6</td><td>0</td><td class="pts-cell">4</td>
           </tr>
           <tr>
             <td><div class="team-cell"><span class="pos-badge pos-3">3</span>&#127465;&#127487; Algeria</div></td>
-            <td>2</td><td>1</td><td>0</td><td>1</td><td>2</td><td>4</td><td class="gd-neg">-2</td><td class="pts-cell">3</td>
+            <td>3</td><td>1</td><td>1</td><td>1</td><td>5</td><td>7</td><td class="gd-neg">-2</td><td class="pts-cell">4</td>
           </tr>
           <tr class="eliminated-row">
             <td><div class="team-cell"><span class="pos-badge pos-4">4</span>&#127471;&#127476; Jordan<span class="elim-tag">ELIM</span></div></td>
-            <td>2</td><td>0</td><td>0</td><td>2</td><td>2</td><td>5</td><td class="gd-neg">-3</td><td class="pts-cell">0</td>
+            <td>3</td><td>0</td><td>0</td><td>3</td><td>3</td><td>8</td><td class="gd-neg">-5</td><td class="pts-cell">0</td>
           </tr>
         </tbody>
       </table>
@@ -707,8 +997,8 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
           <tr class="played" data-utc="2026-06-17T04:00:00Z"><td><span class="md-badge">MD1</span></td><td class="match-date">Jun 17</td><td class="match-teams">&#127462;&#127481; Austria <span class="score">3–1</span> Jordan &#127471;&#127476;</td><td class="venue-text">San Francisco Bay Area (Santa Clara)</td></tr>
           <tr class="played" data-utc="2026-06-22T17:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 22</td><td class="match-teams">&#127462;&#127479; Argentina <span class="score">2&#8211;0</span> Austria &#127462;&#127481;</td><td class="venue-text">Dallas (Arlington)</td></tr>
           <tr class="played" data-utc="2026-06-23T03:00:00Z"><td><span class="md-badge">MD2</span></td><td class="match-date">Jun 22</td><td class="match-teams">&#127471;&#127476; Jordan <span class="score">1&#8211;2</span> Algeria &#127465;&#127487;</td><td class="venue-text">San Francisco Bay Area (Santa Clara)</td></tr>
-          <tr class="upcoming" data-utc="2026-06-28T02:00:00Z"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127471;&#127476; Jordan vs Argentina &#127462;&#127479;</td><td class="venue-text">Dallas (Arlington)</td></tr>
-          <tr class="upcoming" data-utc="2026-06-28T02:00:00Z"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127465;&#127487; Algeria vs Austria &#127462;&#127481;</td><td class="venue-text">Kansas City</td></tr>
+          <tr class="played" data-utc="2026-06-28T02:00:00Z"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127471;&#127476; Jordan <span class="score">1&#8211;3</span> Argentina &#127462;&#127479;</td><td class="venue-text">Dallas (Arlington)</td></tr>
+          <tr class="played" data-utc="2026-06-28T02:00:00Z"><td><span class="md-badge">MD3</span></td><td class="match-date">Jun 27</td><td class="match-teams">&#127465;&#127487; Algeria <span class="score">3&#8211;3</span> Austria &#127462;&#127481;</td><td class="venue-text">Kansas City</td></tr>
         </table>
       </div>
     </div>
@@ -804,298 +1094,10 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
   </div><!-- /groups-grid -->
 </section>
 
-<!-- ═══════════════════ THIRD PLACE ═══════════════════ -->
-<section id="thirds" class="thirds-section">
-  <div class="section-header">
-    <h2>&#127941; <span>3rd-Place</span> Rankings</h2>
-    <span class="section-badge">Live</span>
-  </div>
-  <p class="thirds-note">8 best 3rd-place teams advance to Round of 32. &#10003; = mathematically confirmed qualified. &#10007; = eliminated. ✦ = MD3 not yet played (Group J plays MD3 on Jun 28).</p>
-  <div class="thirds-table-wrap">
-    <table class="thirds-table">
-      <thead><tr>
-        <th>Rank</th><th>Team</th><th>Grp</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
-      </tr></thead>
-      <tbody>
-        <tr class="qualified-row"><td class="rank-num">1</td><td>&#127464;&#127465; DR Congo &#10003;</td><td><span class="group-tag">K</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>4</td><td>3</td><td class="gd-pos">+1</td><td class="pts-cell">4</td></tr>
-        <tr class="qualified-row"><td class="rank-num">2</td><td>&#127480;&#127466; Sweden &#10003;</td><td><span class="group-tag">F</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>7</td><td>7</td><td>0</td><td class="pts-cell">4</td></tr>
-        <tr class="qualified-row"><td class="rank-num">3</td><td>&#127466;&#127464; Ecuador &#10003;</td><td><span class="group-tag">E</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">4</td></tr>
-        <tr class="qualified-row"><td class="rank-num">4</td><td>&#127468;&#127469; Ghana &#10003;</td><td><span class="group-tag">L</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>2</td><td>2</td><td>0</td><td class="pts-cell">4</td></tr>
-        <tr class="qualified-row"><td class="rank-num">5</td><td>&#127463;&#127462; Bosnia &amp; Herz. &#10003;</td><td><span class="group-tag">B</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>5</td><td>6</td><td class="gd-neg">-1</td><td class="pts-cell">4</td></tr>
-        <tr class="qualified-row"><td class="rank-num">6</td><td>&#127477;&#127486; Paraguay &#10003;</td><td><span class="group-tag">D</span></td><td>3</td><td>1</td><td>1</td><td>1</td><td>2</td><td>4</td><td class="gd-neg">-2</td><td class="pts-cell">4</td></tr>
-        <tr class="qualified-row"><td class="rank-num">7</td><td>&#127480;&#127475; Senegal &#10003;</td><td><span class="group-tag">I</span></td><td>3</td><td>1</td><td>0</td><td>2</td><td>8</td><td>6</td><td class="gd-pos">+2</td><td class="pts-cell">3</td></tr>
-        <tr class="contention"><td class="rank-num">8</td><td>&#127470;&#127479; Iran</td><td><span class="group-tag">G</span></td><td>3</td><td>0</td><td>3</td><td>0</td><td>3</td><td>3</td><td>0</td><td class="pts-cell">3</td></tr>
-        <tr class="thirds-divider"><td colspan="11">&#8212; Currently below qualification line &#8212;</td></tr>
-        <tr><td class="rank-num">9</td><td>&#127472;&#127479; South Korea</td><td><span class="group-tag">A</span></td><td>3</td><td>1</td><td>0</td><td>2</td><td>2</td><td>3</td><td class="gd-neg">-1</td><td class="pts-cell">3</td></tr>
-        <tr><td class="rank-num">10</td><td>&#127465;&#127487; Algeria ✦</td><td><span class="group-tag">J</span></td><td>2</td><td>1</td><td>0</td><td>1</td><td>2</td><td>4</td><td class="gd-neg">-2</td><td class="pts-cell">3</td></tr>
-        <tr><td class="rank-num">11</td><td>&#127988;󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</td><td><span class="group-tag">C</span></td><td>3</td><td>1</td><td>0</td><td>2</td><td>1</td><td>4</td><td class="gd-neg">-3</td><td class="pts-cell">3</td></tr>
-        <tr class="eliminated-row"><td class="rank-num">12</td><td>&#127482;&#127486; Uruguay &#10007;</td><td><span class="group-tag">H</span></td><td>3</td><td>0</td><td>2</td><td>1</td><td>3</td><td>4</td><td class="gd-neg">-1</td><td class="pts-cell">2</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ═══════════════════ BRACKET ═══════════════════ -->
-<section id="bracket" class="bracket-section">
-  <div class="section-header">
-    <h2>&#127358; Round of <span>32</span> Bracket</h2>
-    <span class="section-badge">Jun 28 – Jul 13</span>
-  </div>
-  <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;">&#8592; Scroll horizontally on mobile &nbsp;|&nbsp; R32 runs June 28 – July 3, 2026</p>
-
-  <div class="bracket-outer">
-    <div class="bracket-wrap">
-
-      <!-- LEFT HALF LABEL -->
-      <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:0 0.25rem">
-        <span>&#9664; Left Half</span><span>Right Half &#9654;</span>
-      </div>
-
-      <div class="bracket-grid">
-
-        <!-- R32 LEFT (8 matches) -->
-        <div class="bracket-round">
-          <div class="round-header">Round of 32</div>
-          <div class="bracket-matches">
-
-            <div class="bracket-match">
-              <div class="match-meta">M1 &bull; Jun 28 &bull; SoFi Stadium, LA</div>
-              <div class="bracket-team winner"><span>&#127487;&#127462; South Africa (2A)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team winner"><span>&#127464;&#127462; Canada (2B)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M2 &bull; Jun 29 &bull; NRG Stadium, Houston</div>
-              <div class="bracket-team winner"><span>&#127463;&#127479; Brazil (1C)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team winner"><span>&#127471;&#127477; Japan (2F)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M3 &bull; Jun 29 &bull; Gillette Stadium</div>
-              <div class="bracket-team winner"><span>&#127465;&#127466; Germany (1E)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>Best 3rd (A/B/C/D/F)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M4 &bull; Jun 29 &bull; Estadio Akron</div>
-              <div class="bracket-team winner"><span>&#127475;&#127473; Netherlands (1F)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team winner"><span>&#127474;&#127462; Morocco (2C)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M5 &bull; Jun 30 &bull; AT&amp;T Stadium, TX</div>
-              <div class="bracket-team winner"><span>&#127464;&#127470; Ivory Coast (2E)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team winner"><span>&#127475;&#127476; Norway (2I)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M6 &bull; Jun 30 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127467;&#127479; France (1I)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>Best 3rd (C/D/F/G/H)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M7 &bull; Jun 30 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127474;&#127485; Mexico (1A)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>Best 3rd (C/E/F/H/I)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M8 &bull; Jul 1 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127462;&#127482; Australia (2D)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team winner"><span>&#127466;&#127468; Egypt (2G)</span></div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- R16 LEFT -->
-        <div class="bracket-round">
-          <div class="round-header">Round of 16</div>
-          <div class="bracket-matches">
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M1</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M2</span></div>
-            </div>
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M3</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M4</span></div>
-            </div>
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M5</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M6</span></div>
-            </div>
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M7</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M8</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- QF LEFT -->
-        <div class="bracket-round">
-          <div class="round-header">Quarter-Finals</div>
-          <div class="bracket-matches">
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 9–10</div>
-              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>TBD</span></div>
-            </div>
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 9–10</div>
-              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>TBD</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SF LEFT -->
-        <div class="bracket-round">
-          <div class="round-header">Semi-Finals</div>
-          <div class="bracket-matches">
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 14–15</div>
-              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>TBD</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FINAL -->
-        <div class="bracket-final">
-          <div class="final-label">&#127942; FINAL &bull; Jul 19</div>
-          <div class="bracket-match final-match">
-            <div class="match-meta">MetLife Stadium, NJ &bull; Jul 19</div>
-            <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
-            <div class="bracket-team tbd"><span>TBD</span></div>
-          </div>
-        </div>
-
-        <!-- SF RIGHT -->
-        <div class="bracket-round">
-          <div class="round-header">Semi-Finals</div>
-          <div class="bracket-matches">
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 14–15</div>
-              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>TBD</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- QF RIGHT -->
-        <div class="bracket-round">
-          <div class="round-header">Quarter-Finals</div>
-          <div class="bracket-matches">
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 9–10</div>
-              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>TBD</span></div>
-            </div>
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 9–10</div>
-              <div class="bracket-team tbd"><span>TBD</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>TBD</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- R16 RIGHT -->
-        <div class="bracket-round">
-          <div class="round-header">Round of 16</div>
-          <div class="bracket-matches">
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M9</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M10</span></div>
-            </div>
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M11</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M12</span></div>
-            </div>
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M13</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M14</span></div>
-            </div>
-            <div class="bracket-match">
-              <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M15</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M16</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- R32 RIGHT (8 matches) -->
-        <div class="bracket-round">
-          <div class="round-header">Round of 32</div>
-          <div class="bracket-matches">
-
-            <div class="bracket-match">
-              <div class="match-meta">M9 &bull; Jul 1 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127463;&#127466; Belgium (1G)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>Best 3rd (A/E/H/I/J)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M10 &bull; Jul 1 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127464;&#127469; Switzerland (1B)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>Best 3rd (E/F/G/I/J)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M11 &bull; Jul 1 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127482;&#127480; USA (1D)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>TBD</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M12 &bull; Jul 2 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127464;&#127483; Cape Verde (2H)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>2J (TBD)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M13 &bull; Jul 2 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127466;&#127480; Spain (1H)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>2J (TBD)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M14 &bull; Jul 2 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127462;&#127479; Argentina (1J)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team winner"><span>&#127477;&#127481; Portugal (2K)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M15 &bull; Jul 3 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127464;&#127476; Colombia (1K)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team winner"><span>&#127469;&#127479; Croatia (2L)</span></div>
-            </div>
-
-            <div class="bracket-match">
-              <div class="match-meta">M16 &bull; Jul 3 &bull; TBD</div>
-              <div class="bracket-team winner"><span>&#127988;󠁧󠁢󠁥󠁮󠁧󠁿 England (1L)</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>TBD</span></div>
-            </div>
-
-          </div>
-        </div>
-
-      </div><!-- /bracket-grid -->
-    </div><!-- /bracket-wrap -->
-  </div><!-- /bracket-outer -->
-</section>
-
 </main>
 
 <footer style="text-align:center;padding:2rem 1rem;color:var(--muted);font-size:0.78rem;border-top:1px solid var(--border);margin-top:2rem">
-  <p>2026 FIFA World Cup Tracker &bull; Data current as of <strong id="footer-updated">June 20, 2026</strong></p>
+  <p>2026 FIFA World Cup Tracker &bull; Data current as of <strong id="footer-updated">June 30, 2026</strong></p>
   <p style="margin-top:0.3rem">USA &bull; Canada &bull; Mexico &bull; 48 Teams &bull; 16 Venues &bull; June 11 – July 19, 2026</p>
 </footer>
 
@@ -1307,7 +1309,7 @@ function toggleUpcoming() {
 // ─────────────────────────────────────────────────────────
 
 // Render last-updated timestamps in viewer's local timezone
-var UPDATE_UTC = '2026-06-28T00:00:00Z';
+var UPDATE_UTC = '2026-06-30T00:00:00Z';
 var luEl = document.getElementById('last-updated-el');
 if (luEl) luEl.innerHTML = '&#128197; Last updated: ' + fmtLocalDateTime(UPDATE_UTC);
 var fuEl = document.getElementById('footer-updated');
