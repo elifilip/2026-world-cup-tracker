@@ -1,4 +1,4 @@
-var CACHE = 'wc2026-v1';
+var CACHE = 'wc2026-v2';
 var ASSETS = ['./', './index.html'];
 
 self.addEventListener('install', function(e) {

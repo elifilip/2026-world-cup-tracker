@@ -139,6 +139,9 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 .bracket-team.adv{background:rgba(26,122,74,0.12);font-weight:700;color:#fff}
 .bracket-team.elim{opacity:0.45}
 .bracket-team.elim span:first-child{text-decoration:line-through;color:var(--muted)}
+.bracket-team.live{background:rgba(248,113,113,0.12)}
+.live-badge{display:inline-block;background:#dc2626;color:#fff;font-size:0.6rem;font-weight:700;padding:0.1rem 0.4rem;border-radius:3px;margin-left:0.5rem;vertical-align:middle;animation:livepulse 1.4s ease-in-out infinite}
+@keyframes livepulse{0%,100%{opacity:1}50%{opacity:0.35}}
 .bracket-score{font-weight:700;color:var(--gold);font-size:0.75rem}
 
 /* CONNECTOR LINES */
@@ -299,14 +302,14 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
 
             <div class="bracket-match">
               <div class="match-meta">M3 &bull; Jun 29 &bull; Gillette Stadium</div>
-              <div class="bracket-team adv"><span>&#127465;&#127466; Germany (1E)</span><span class="bracket-score">1&#8211;1 (pens)</span></div>
-              <div class="bracket-team elim"><span>&#127477;&#127486; Paraguay (3D)</span></div>
+              <div class="bracket-team elim"><span>&#127465;&#127466; Germany (1E)</span><span class="bracket-score">1&#8211;1 (pens)</span></div>
+              <div class="bracket-team adv"><span>&#127477;&#127486; Paraguay (3D)</span></div>
             </div>
 
             <div class="bracket-match">
-              <div class="match-meta">M4 &bull; Jun 29 &bull; Estadio Akron</div>
-              <div class="bracket-team winner"><span>&#127475;&#127473; Netherlands (1F)</span><span class="bracket-score">&#8211;</span></div>
-              <div class="bracket-team winner"><span>&#127474;&#127462; Morocco (2C)</span></div>
+              <div class="match-meta">M4 &bull; Jun 29 &bull; Estadio Akron<span class="live-badge">LIVE</span></div>
+              <div class="bracket-team live"><span>&#127475;&#127473; Netherlands (1F)</span><span class="bracket-score">&#8211;</span></div>
+              <div class="bracket-team live"><span>&#127474;&#127462; Morocco (2C)</span></div>
             </div>
 
             <div class="bracket-match">
@@ -341,13 +344,13 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
           <div class="bracket-matches">
             <div class="bracket-match">
               <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M1</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M2</span></div>
+              <div class="bracket-team winner"><span>&#127464;&#127462; Canada</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team winner"><span>&#127463;&#127479; Brazil</span></div>
             </div>
             <div class="bracket-match">
               <div class="match-meta">TBD &bull; Jul 5–6</div>
-              <div class="bracket-team tbd"><span>W M3</span><span class="bracket-score">–</span></div>
-              <div class="bracket-team tbd"><span>W M4</span></div>
+              <div class="bracket-team winner"><span>&#127477;&#127486; Paraguay</span><span class="bracket-score">–</span></div>
+              <div class="bracket-team tbd"><span>W M4 (Live)</span></div>
             </div>
             <div class="bracket-match">
               <div class="match-meta">TBD &bull; Jul 5–6</div>
@@ -1094,6 +1097,87 @@ main{max-width:1400px;margin:0 auto;padding:1rem}
   </div><!-- /groups-grid -->
 </section>
 
+
+<!-- Hidden R32 schedule data for Recent Results / Upcoming Matches sections -->
+<div class="schedule-body" id="r32-data">
+  <table class="schedule-table">
+    <tr class="played" data-utc="2026-06-28T19:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jun 28</td>
+      <td class="match-teams">&#127487;&#127462; South Africa <span class="score">0&#8211;1</span> Canada &#127464;&#127462;</td>
+      <td class="venue-text">SoFi Stadium, Los Angeles</td>
+    </tr>
+    <tr class="played" data-utc="2026-06-29T17:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jun 29</td>
+      <td class="match-teams">&#127463;&#127479; Brazil <span class="score">2&#8211;1</span> Japan &#127471;&#127477;</td>
+      <td class="venue-text">NRG Stadium, Houston</td>
+    </tr>
+    <tr class="played" data-utc="2026-06-29T20:30:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jun 29</td>
+      <td class="match-teams">&#127465;&#127466; Germany <span class="score">1&#8211;1 (pens)</span> Paraguay &#127477;&#127486;</td>
+      <td class="venue-text">Gillette Stadium, Boston</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-06-30T17:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jun 30</td>
+      <td class="match-teams">&#127464;&#127470; Ivory Coast vs Norway &#127475;&#127476;</td>
+      <td class="venue-text">AT&amp;T Stadium, Dallas</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-06-30T21:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jun 30</td>
+      <td class="match-teams">&#127467;&#127479; France vs Sweden &#127480;&#127466;</td>
+      <td class="venue-text">MetLife Stadium, East Rutherford</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-01T01:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jun 30</td>
+      <td class="match-teams">&#127474;&#127485; Mexico vs Ecuador &#127466;&#127464;</td>
+      <td class="venue-text">Estadio Azteca, Mexico City</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-01T16:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jul 1</td>
+      <td class="match-teams">&#127988;󠁧󠁢󠁬󠁮󠁧󠁿 England vs DR Congo &#127464;&#127465;</td>
+      <td class="venue-text">Mercedes-Benz Stadium, Atlanta</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-01T20:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jul 1</td>
+      <td class="match-teams">&#127463;&#127466; Belgium vs Senegal &#127480;&#127475;</td>
+      <td class="venue-text">Lumen Field, Seattle</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-02T00:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jul 1</td>
+      <td class="match-teams">&#127482;&#127480; USA vs Bosnia &amp; Herz. &#127463;&#127462;</td>
+      <td class="venue-text">Levi's Stadium, San Jose</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-02T19:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jul 2</td>
+      <td class="match-teams">&#127466;&#127480; Spain vs Austria &#127462;&#127481;</td>
+      <td class="venue-text">SoFi Stadium, Los Angeles</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-02T23:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jul 2</td>
+      <td class="match-teams">&#127477;&#127481; Portugal vs Croatia &#127469;&#127479;</td>
+      <td class="venue-text">BMO Field, Toronto</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-03T03:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jul 2</td>
+      <td class="match-teams">&#127464;&#127469; Switzerland vs Algeria &#127465;&#127487;</td>
+      <td class="venue-text">BC Place, Vancouver</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-03T18:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jul 3</td>
+      <td class="match-teams">&#127462;&#127482; Australia vs Egypt &#127466;&#127468;</td>
+      <td class="venue-text">AT&amp;T Stadium, Dallas</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-03T22:00:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jul 3</td>
+      <td class="match-teams">&#127462;&#127479; Argentina vs Cape Verde &#127464;&#127483;</td>
+      <td class="venue-text">Hard Rock Stadium, Miami</td>
+    </tr>
+    <tr class="upcoming" data-utc="2026-07-04T01:30:00Z" data-grp="R32">
+      <td><span class="md-badge">R32</span></td><td class="match-date">Jul 3</td>
+      <td class="match-teams">&#127464;&#127476; Colombia vs Ghana &#127468;&#127469;</td>
+      <td class="venue-text">Arrowhead Stadium, Kansas City</td>
+    </tr>
+  </table>
+</div>
 </main>
 
 <footer style="text-align:center;padding:2rem 1rem;color:var(--muted);font-size:0.78rem;border-top:1px solid var(--border);margin-top:2rem">
@@ -1178,7 +1262,7 @@ document.querySelectorAll('tr[data-utc]').forEach(function(row) {
     var timeStr = d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
 
     var groupCard = srcRow.closest('.group-card');
-    var grpLabel = groupCard ? (groupCard.querySelector('h3') || {}).textContent || '' : '';
+    var grpLabel = groupCard ? (groupCard.querySelector('h3') || {}).textContent || '' : (srcRow.dataset.grp || '');
 
     var teamsCell = srcRow.querySelector('.match-teams');
     var scoreEl = teamsCell ? teamsCell.querySelector('.score') : null;
@@ -1261,7 +1345,7 @@ function toggleResults() {
 
     // Group label – walk up to .group-card then find h3
     var groupCard = srcRow.closest('.group-card');
-    var grpLabel = groupCard ? (groupCard.querySelector('h3') || {}).textContent || '' : '';
+    var grpLabel = groupCard ? (groupCard.querySelector('h3') || {}).textContent || '' : (srcRow.dataset.grp || '');
 
     // Teams – clone cell, strip .score spans
     var teamsCell = srcRow.querySelector('.match-teams');
